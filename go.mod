@@ -1,4 +1,4 @@
-module social-app-pkg
+module github.com/corny90/social-app-pkg
 
 go 1.20
 
