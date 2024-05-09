@@ -3,7 +3,6 @@ package pkg_logger
 import (
 	"fmt"
 	"os"
-	"pkg-common/environment"
 	"time"
 )
 

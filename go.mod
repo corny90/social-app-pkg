@@ -1,4 +1,4 @@
-module pkg-common
+module social-app-pkg
 
 go 1.20
 
