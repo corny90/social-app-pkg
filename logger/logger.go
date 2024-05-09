@@ -2,8 +2,8 @@ package pkg_logger
 
 import (
 	"fmt"
-	"github.com/corny90/dating/pkg-common/environment"
 	"os"
+	"pkg-common/environment"
 	"time"
 )
 
