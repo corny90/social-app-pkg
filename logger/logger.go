@@ -2,6 +2,7 @@ package pkg_logger
 
 import (
 	"fmt"
+	environment "github.com/corny90/social-app-pkg/environment"
 	"os"
 	"time"
 )
@@ -45,13 +46,13 @@ type LogEvent struct {
 }
 
 func Event(logType, msg string, args ...interface{}) LogEvent {
-	if pkg_environment.EnvName == "PRODUCTION" && logType == "DEBUG" {
+	if environment.EnvName == "PRODUCTION" && logType == "DEBUG" {
 		return LogEvent{}
 	}
 
 	logEvent := LogEvent{
 		LogType:           GetLogTypeLabel(logType),
-		LogEnvironment:    pkg_environment.EnvName,
+		LogEnvironment:    environment.EnvName,
 		LogStartTimestamp: time.Now().Format("2006/01/02 15:04:05"),
 		LogMessage:        fmt.Sprintf(msg, args...),
 	}
@@ -83,7 +84,7 @@ func ReqLog(logStatusCode int, logMethod string, logPath string) LogRequest {
 		LogStatusCode:     logStatusCode,
 		LogMethod:         logMethod,
 		LogPath:           logPath,
-		LogEnvironment:    pkg_environment.EnvName,
+		LogEnvironment:    environment.EnvName,
 	}
 
 	logMessage := fmt.Sprintf("%s%s%s %s%s%s %v%v%v %s%s%s %s%d%s %v%v%v %s%s%s %v%v%v %s%s%s",
