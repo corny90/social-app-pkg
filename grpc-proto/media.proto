@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package media;
+option go_package = "/grpc-proto";
+
+service MediaService {
+  rpc PingApiMedia (PingApiMediaRequest) returns (PingApiMediaResponse);
+  rpc PostUploadMedia (PostUploadMediaRequest) returns (PostUploadMediaResponse);
+  rpc PostFetchMedia (PostFetchMediaRequest) returns (PostFetchMediaResponse);
+  rpc PostDeleteMedia (PostDeleteMediaRequest) returns (PostDeleteMediaResponse);
+  rpc PostsFetchMedia (PostsFetchMediaRequest) returns (PostsFetchMediaResponse);
+}
+
+// PING
+message PingApiMediaRequest {}
+
+message PingApiMediaResponse {
+  string status = 1;
+}
+
+// POST MEDIA
+message PostUploadMediaRequest {
+  string userId = 1;
+  string userEmail = 2;
+  bool isVirtual = 3;
+  string postId = 4;
+  string mimeType = 5;
+  string originalFilename = 6;
+  string sizeCategory = 7;
+  bytes photo = 8;
+}
+
+message PostUploadMediaResponse {
+  Media media = 1;
+}
+
+// FETCH ONE POST MEDIA
+message PostFetchMediaRequest {
+  string userId = 1;
+  bool isVirtual = 2;
+}
+
+message PostFetchMediaResponse {
+  repeated Media photoObjects = 1;
+}
+
+// FETCH MORE THAN ONE POST MEDIA
+message PostsFetchMediaRequest {
+  repeated string postIds = 1;
+  bool isVirtual = 2;
+}
+
+message PostsFetchMediaResponse {
+  repeated Media mediaObjects = 1;
+}
+
+// DELETE MEDIA
+message PostDeleteMediaRequest {
+  string postId = 1;
+  bool isVirtual = 2;
+}
+
+message PostDeleteMediaResponse {
+  bool success = 1;
+}
+
+// THE PHOTO
+message Media {
+  string timestamp = 1;
+  string userId = 2;
+  bool isVirtual = 3;
+  string postId = 4;
+  string mediaId = 5;
+  string mediaType = 6;
+  string mediaFilename = 7;
+  string coverFilename = 8;
+  string metadata = 9;
+}

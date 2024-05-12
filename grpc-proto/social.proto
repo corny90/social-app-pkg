@@ -1,0 +1,229 @@
+syntax = "proto3";
+import "grpc-proto/media.proto";
+
+package social;
+option go_package = "/grpc-proto";
+
+// ------------------------------------------------------------------------------------------------------
+// >>> SERVICE
+// ------------------------------------------------------------------------------------------------------
+
+service SocialService {
+  rpc PingApiSocial (PingApiSocialRequest) returns (PingApiSocialResponse);
+  rpc PostCreate(PostCreateRequest) returns (PostCreateResponse);
+  rpc PostsFetchByUserID(PostsFetchByUserIDRequest) returns (PostsFetchByUserIDResponse);
+  rpc PostDelete(PostDeleteRequest) returns (PostDeleteResponse);
+  rpc PostsFetchVirtualLatest(PostsFetchVirtualLatestRequest) returns (PostsFetchVirtualLatestResponse);
+  rpc PostsFetchByKeyword(PostsFetchByKeywordRequest) returns (PostsFetchByKeywordResponse);
+  rpc PostsFetchByKeywords(PostsFetchByKeywordsRequest) returns (PostsFetchByKeywordsResponse);
+  rpc PostsFetchAllKeywords(PostsFetchAllKeywordsRequest) returns (PostsFetchAllKeywordsResponse);
+  rpc PostToggleLike(PostToggleLikeRequest) returns (PostToggleLikeResponse);
+  rpc PostFetchLikes(PostFetchLikesRequest) returns (PostFetchLikesResponse);
+  rpc PostFetchViews(PostFetchViewsRequest) returns (PostFetchViewsResponse);
+  rpc PostCommentCreate(PostCommentCreateRequest) returns (PostCommentCreateResponse);
+  rpc PostCommentsFetch(PostCommentsFetchRequest) returns (PostCommentsFetchResponse);
+  rpc PostCommentDelete(PostCommentDeleteRequest) returns (PostCommentDeleteResponse);
+}
+
+// ------------------------------------------------------------------------------------------------------
+// >>> REQUESTS
+// ------------------------------------------------------------------------------------------------------
+
+// PING
+message PingApiSocialRequest {}
+
+message PingApiSocialResponse {
+  string status = 1;
+}
+
+// POST CREATE
+message PostCreateRequest {
+  Post post = 1;
+}
+message PostCreateResponse {
+  Post post = 1;
+}
+
+// POSTS FETCH BY USER ID
+message PostsFetchByUserIDRequest {
+  string currentUserId = 1;
+  string targetUserId = 2;
+  bool isVirtual = 3;
+}
+message PostsFetchByUserIDResponse {
+  repeated Post posts = 1;
+}
+
+// POST DELETE
+message PostDeleteRequest {
+  string post_id = 1;
+  string user_id = 2;
+  bool is_virtual = 3;
+}
+message PostDeleteResponse {}
+
+// POSTS FETCH VIRTUAL LATEST
+message PostsFetchVirtualLatestRequest {
+  string user_id = 1;
+  bool is_virtual = 2;
+  bytes page_state = 3;
+}
+message PostsFetchVirtualLatestResponse {
+  repeated Post posts = 1;
+  bytes page_state = 2;
+}
+
+// POSTS FETCH BY KEYWORD
+message PostsFetchByKeywordRequest {
+  string user_id = 1;
+  string keyword = 2;
+  bool is_virtual = 3;
+  bytes page_state = 4;
+}
+message PostsFetchByKeywordResponse {
+  repeated Post posts = 1;
+  bytes page_state = 2;
+}
+
+// POSTS FETCH BY KEYWORDS
+message PostsFetchByKeywordsRequest {
+  string user_id = 1;
+  repeated string keywords = 2;
+  bool is_virtual = 3;
+  map<string, bytes> pages_states = 4;
+}
+message PostsFetchByKeywordsResponse {
+  repeated Post posts = 1;
+  map<string, bytes> pages_states = 2;
+}
+
+// POSTS FETCH ALL KEYWORDS
+message PostsFetchAllKeywordsRequest {
+  bytes page_state = 1;
+}
+message PostsFetchAllKeywordsResponse {
+  repeated string keywords = 1;
+  bytes page_state = 2;
+}
+
+// POST TOGGLE LIKE
+message PostToggleLikeRequest {
+  string post_id = 1;
+  string user_id = 2;
+}
+message PostToggleLikeResponse {}
+
+// POST FETCH LIKES
+message PostFetchLikesRequest {
+  string post_id = 1;
+  bytes page_state = 2;
+}
+message PostFetchLikesResponse {
+  repeated PostLike likes = 1;
+  bytes page_state = 2;
+}
+
+// POST FETCH VIEWS
+message PostFetchViewsRequest {
+  string post_id = 1;
+  bytes page_state = 2;
+}
+message PostFetchViewsResponse {
+  repeated PostView views = 1;
+  bytes page_state = 2;
+}
+
+// POST COMMENT CREATE
+message PostCommentCreateRequest {
+  PostComment comment = 1;
+}
+message PostCommentCreateResponse {
+  PostComment comment = 1;
+}
+
+// POST COMMENT FETCH
+message PostCommentsFetchRequest {
+  string post_id = 1;
+  bytes page_state = 2;
+}
+message PostCommentsFetchResponse {
+  repeated PostComment comments = 1;
+  bytes page_state = 2;
+}
+
+// POST COMMENT DELETE
+message PostCommentDeleteRequest {
+  string comment_id = 1;
+  string post_id = 2;
+  string user_id = 3;
+}
+message PostCommentDeleteResponse {}
+
+// ------------------------------------------------------------------------------------------------------
+// >>> MODELS
+// ------------------------------------------------------------------------------------------------------
+
+message Post {
+  string post_id = 1;
+  string user_target_id = 2;
+  string user_creator_id = 3;
+  string created_at = 4;
+  bool private = 5;
+  string private_type = 6; // "only_me", "only_to_target", "to_a_public"
+  string content_text = 7;
+  string content_status = 8;
+  repeated string keywords = 9;
+  repeated media.Media media = 10;
+  PostCounter counters = 11;
+  bool is_liked = 12;
+  bool is_virtual = 13;
+}
+
+message PostCounter {
+  string post_id = 1;
+  int64 counter_likes = 2;
+  int64 counter_comments = 3;
+  int64 counter_views = 4;
+}
+
+message PostView {
+  string post_id = 1;
+  string user_id = 2;
+  string created_at = 3;
+}
+
+message PostLike {
+  string post_id = 1;
+  string user_id = 2;
+  string created_at = 3;
+}
+
+message PostComment {
+  string comment_id = 1;
+  string post_id = 2;
+  string author_id = 3;
+  string created_at = 4;
+  string updated_at = 5;
+  string content = 6;
+}
+
+message CommentReply {
+  string parent_comment_id = 1;
+  string reply_id = 2;
+  string post_id = 3;
+  string author_id = 4;
+  string created_at = 5;
+  string content = 6;
+}
+
+message CommentLike {
+  string comment_id = 1;
+  string user_id = 2;
+  string liked_at = 3;
+}
+
+//message Media {
+//  bytes photo_bytes = 1;
+//  string mime_type = 2;
+//  string original_filename = 3;
+//}

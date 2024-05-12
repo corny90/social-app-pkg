@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package message;
+option go_package = "/grpc-proto";
+
+service MessageService {
+  rpc PingApiMessage (PingApiMessageRequest) returns (PingApiMessageResponse);
+  rpc CustomerMessage (CustomerMessageRequest) returns (CustomerMessageResponse);
+  rpc ChatbotMessage (ChatbotMessageRequest) returns (ChatbotMessageResponse);
+
+  rpc PingTasksQueue (PingTasksQueueRequest) returns (PingTasksQueueResponse);
+  rpc CreateTaskMessage (CreateTaskMessageRequest) returns (CreateTaskMessageResponse);
+  rpc CompleteTaskMessage (CompleteTaskMessageRequest) returns (CompleteTaskMessageResponse);
+}
+
+//--------------------------------------
+// Ping API Message
+message PingApiMessageRequest {}
+
+message PingApiMessageResponse {
+  string status = 1;
+}
+
+//--------------------------------------
+// Customer Message
+message CustomerMessageRequest {
+  string conversation = 1;
+  string sender = 2;
+  repeated string recipient = 3;
+  string content = 4;
+}
+
+message CustomerMessageResponse {
+  string status = 1;
+  Message message = 2;
+}
+
+//--------------------------------------
+// Chatbot Message
+message ChatbotMessageRequest {
+  repeated string recipient = 1;
+  Message message = 2;
+}
+
+message ChatbotMessageResponse {
+  string status = 1;
+}
+
+//--------------------------------------
+// PING Task Queue - BullMQ
+message PingTasksQueueRequest {}
+
+message PingTasksQueueResponse {
+  string status = 1;
+}
+
+//--------------------------------------
+// CREATE Task Message
+message CreateTaskMessageRequest {
+  string type = 1;
+  int32 delay = 2;
+  TaskData taskData = 3;
+}
+
+message CreateTaskMessageResponse {
+  string status = 1;
+}
+
+//--------------------------------------
+// Complete Task Message (from TasksQueue to Message Microservice)
+message CompleteTaskMessageRequest {
+  string type = 1;
+  TaskData taskData = 2;
+}
+
+message CompleteTaskMessageResponse {
+  string status = 1;
+}
+
+//--------------------------------------
+// Message
+message Message {
+  string messageID = 1;
+  string conversationID = 2;
+  string sender = 3;
+  string content = 4;
+  int64 timestamp = 5;
+  string state = 6;
+  string metadata = 7;
+}
+
+// Task Data
+message TaskData {
+  string messageID = 1;
+  string conversationID = 2;
+  string sender = 3;
+  string content = 4;
+  int64 timestamp = 5;
+  string state = 6;
+  string metadata = 7;
+  repeated string recipient = 8;
+}
