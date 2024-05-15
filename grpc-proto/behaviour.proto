@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package behaviour;
+option go_package = "/grpc-proto";
+
+// ------------------------------------------------------------------------------------------------------
+// >>> SERVICE
+// ------------------------------------------------------------------------------------------------------
+
+service BehaviourService {
+  rpc PingApiBehaviour (PingApiBehaviourRequest) returns (PingApiBehaviourResponse);
+  rpc BehaviourFetch(BehaviourFetchRequest) returns (BehaviourFetchResponse);
+}
+
+// ------------------------------------------------------------------------------------------------------
+// >>> REQUESTS
+// ------------------------------------------------------------------------------------------------------
+
+// PING
+message PingApiBehaviourRequest {}
+
+message PingApiBehaviourResponse {
+  string status = 1;
+}
+
+// POST CREATE
+message BehaviourFetchRequest {
+  string user_id = 1;
+}
+message BehaviourFetchResponse {
+  StatisticData statistic_data = 1;
+}
+
+
+
+// ------------------------------------------------------------------------------------------------------
+// >>> MODELS
+// ------------------------------------------------------------------------------------------------------
+
+message TrackRecord {
+  string user_id = 1;
+  string posts_id = 2;
+  bool action_view = 3;
+  bool action_like = 4;
+  bool action_comment = 5;
+  int32 view_duration = 6;
+  Clicks clicks = 7;
+  string created_at = 8;
+  repeated string keywords = 9;
+  int32 score = 10;
+}
+
+message Clicks {
+  bool post_user = 1;
+  bool views = 2;
+  bool likes = 3;
+  bool comments = 4;
+}
+
+message KeywordStats {
+  string keyword = 1;
+  int32 total_views = 2;
+  int32 total_time = 3;
+}
+
+message StatisticData {
+  repeated TrackRecord topRecords = 1;
+  repeated TrackRecord topPosts = 2;
+  repeated KeywordStats topKeywords = 3;
+}
+
