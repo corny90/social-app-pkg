@@ -28,7 +28,8 @@ message BehaviourFetchRequest {
   string user_id = 1;
 }
 message BehaviourFetchResponse {
-  StatisticData statistic_data = 1;
+  string user_id = 1;
+  StatisticData statistic_data = 2;
 }
 
 
@@ -68,4 +69,3 @@ message StatisticData {
   repeated TrackRecord topPosts = 2;
   repeated KeywordStats topKeywords = 3;
 }
-

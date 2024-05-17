@@ -1,6 +1,7 @@
 package behaviour
 
 import (
+	"encoding/json"
 	"github.com/gocql/gocql"
 	"time"
 )
@@ -11,21 +12,39 @@ type TrackRecord struct {
 	ActionView    bool       `json:"actionView"`
 	ActionLike    bool       `json:"actionLike"`
 	ActionComment bool       `json:"actionComment"`
-	ViewDuration  int32      `json:"viewDuration"`
-	Clicks        string     `json:"clicks"`
+	ViewDuration  int        `json:"viewDuration"`
+	Clicks        Clicks     `json:"clicks"`
 	CreatedAt     time.Time  `json:"createdAt"`
 	Keywords      []string   `json:"keywords"`
 	Score         int        `json:"score"`
+	TrackType     string     `json:"trackType"`
+}
+
+type Clicks struct {
+	PostUser bool `json:"post_user"`
+	Views    bool `json:"views"`
+	Likes    bool `json:"likes"`
+	Comments bool `json:"comments"`
 }
 
 type KeywordStats struct {
 	Keyword    string `json:"keyword"`
-	TotalViews int32  `json:"totalViews"`
-	TotalTime  int32  `json:"totalTime"`
+	TotalViews int    `json:"totalViews"`
+	TotalTime  int    `json:"totalTime"`
 }
 
 type StatisticData struct {
 	TopSpentTime []TrackRecord  `json:"topRecords"`
 	TopAccessed  []TrackRecord  `json:"topPosts"`
 	TopKeywords  []KeywordStats `json:"topKeywords"`
+}
+
+type TrackRequest struct {
+	UserID string `json:"userId"`
+}
+
+type TrackResponse struct {
+	UserID string          `json:"userId"`
+	Status string          `json:"status"`
+	Data   json.RawMessage `json:"data"`
 }
