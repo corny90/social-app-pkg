@@ -76,3 +76,23 @@ type MediaFile struct {
 	MimeType         string
 	OriginalFilename string
 }
+
+type Followings struct {
+	UserID       gocql.UUID `json:"userId"`
+	FollowUserID gocql.UUID `json:"followUserId"`
+	Status       string     `json:"status"`
+	CreatedAt    time.Time  `json:"createdAt"`
+}
+
+type Followers struct {
+	UserID         gocql.UUID `json:"userId"`
+	FollowedUserID gocql.UUID `json:"followedUserId"`
+	Status         string     `json:"status"`
+	CreatedAt      time.Time  `json:"createdAt"`
+}
+
+type FollowsCounter struct {
+	UserID            gocql.UUID `json:"userId"`
+	CounterFollowings int64      `json:"counterFollowings"`
+	CounterFollowers  int64      `json:"counterFollowers"`
+}
