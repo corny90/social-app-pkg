@@ -78,25 +78,10 @@ type MediaFile struct {
 }
 
 type Follows struct {
-	UserID         gocql.UUID `json:"userId"`
-	FollowUserID   gocql.UUID `json:"followUserId"`
-	FollowedUserID gocql.UUID `json:"followedUserId"`
-	Status         string     `json:"status"`
-	CreatedAt      time.Time  `json:"createdAt"`
-}
-
-type Followings struct {
-	UserID       gocql.UUID `json:"userId"`
-	FollowUserID gocql.UUID `json:"followUserId"`
-	Status       string     `json:"status"`
-	CreatedAt    time.Time  `json:"createdAt"`
-}
-
-type Followers struct {
-	UserID         gocql.UUID `json:"userId"`
-	FollowedUserID gocql.UUID `json:"followedUserId"`
-	Status         string     `json:"status"`
-	CreatedAt      time.Time  `json:"createdAt"`
+	FollowingID gocql.UUID `json:"followingId"`
+	FollowerID  gocql.UUID `json:"followerId"`
+	CreatedAt   time.Time  `json:"createdAt"`
+	Status      string     `json:"status"`
 }
 
 type FollowsCounter struct {

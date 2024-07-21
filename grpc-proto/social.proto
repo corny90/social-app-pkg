@@ -23,6 +23,12 @@ service SocialService {
   rpc PostCommentCreate(PostCommentCreateRequest) returns (PostCommentCreateResponse);
   rpc PostCommentsFetch(PostCommentsFetchRequest) returns (PostCommentsFetchResponse);
   rpc PostCommentDelete(PostCommentDeleteRequest) returns (PostCommentDeleteResponse);
+
+  rpc FollowCreate(FollowCreateRequest) returns (FollowCreateResponse);
+  rpc FollowDelete(FollowDeleteRequest) returns (FollowDeleteResponse);
+  rpc FollowingsFetch(FollowingsFetchRequest) returns (FollowingsFetchResponse);
+  rpc FollowersFetch(FollowersFetchRequest) returns (FollowersFetchResponse);
+  rpc FollowsCounterFetch(FollowsCounterFetchRequest) returns (FollowsCounterFetchResponse);
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -159,6 +165,49 @@ message PostCommentDeleteRequest {
 }
 message PostCommentDeleteResponse {}
 
+// FOLLOW CREATE
+message FollowCreateRequest {
+  string follower_id = 1;
+  string following_id = 2;
+}
+message FollowCreateResponse {}
+
+// FOLLOW DELETE
+message FollowDeleteRequest {
+  string follower_id = 1;
+  string following_id = 2;
+}
+message FollowDeleteResponse {}
+
+// FOLLOWINGS FETCH
+message FollowingsFetchRequest {
+  string user_id = 1;
+  bytes page_state = 2;
+}
+message FollowingsFetchResponse {
+  repeated Follow followings = 1;
+  bytes page_state = 2;
+}
+
+// FOLLOWERS FETCH
+message FollowersFetchRequest {
+  string user_id = 1;
+  bytes page_state = 2;
+}
+message FollowersFetchResponse {
+  repeated Follow followers = 1;
+  bytes page_state = 2;
+}
+
+// FOLLOWS COUNTER FETCH
+message FollowsCounterFetchRequest {
+  string user_id = 1;
+}
+message FollowsCounterFetchResponse {
+  int64 counter_followers = 1;
+  int64 counter_followings = 2;
+}
+
 // ------------------------------------------------------------------------------------------------------
 // >>> MODELS
 // ------------------------------------------------------------------------------------------------------
@@ -222,8 +271,9 @@ message CommentLike {
   string liked_at = 3;
 }
 
-//message Media {
-//  bytes photo_bytes = 1;
-//  string mime_type = 2;
-//  string original_filename = 3;
-//}
+message Follow {
+  string follower_id = 1;
+  string following_id = 2;
+  string created_at = 3;
+  string status = 4;
+}

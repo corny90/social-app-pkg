@@ -33,6 +33,11 @@ const (
 	SocialService_PostCommentCreate_FullMethodName       = "/social.SocialService/PostCommentCreate"
 	SocialService_PostCommentsFetch_FullMethodName       = "/social.SocialService/PostCommentsFetch"
 	SocialService_PostCommentDelete_FullMethodName       = "/social.SocialService/PostCommentDelete"
+	SocialService_FollowCreate_FullMethodName            = "/social.SocialService/FollowCreate"
+	SocialService_FollowDelete_FullMethodName            = "/social.SocialService/FollowDelete"
+	SocialService_FollowingsFetch_FullMethodName         = "/social.SocialService/FollowingsFetch"
+	SocialService_FollowersFetch_FullMethodName          = "/social.SocialService/FollowersFetch"
+	SocialService_FollowsCounterFetch_FullMethodName     = "/social.SocialService/FollowsCounterFetch"
 )
 
 // SocialServiceClient is the client API for SocialService service.
@@ -53,6 +58,11 @@ type SocialServiceClient interface {
 	PostCommentCreate(ctx context.Context, in *PostCommentCreateRequest, opts ...grpc.CallOption) (*PostCommentCreateResponse, error)
 	PostCommentsFetch(ctx context.Context, in *PostCommentsFetchRequest, opts ...grpc.CallOption) (*PostCommentsFetchResponse, error)
 	PostCommentDelete(ctx context.Context, in *PostCommentDeleteRequest, opts ...grpc.CallOption) (*PostCommentDeleteResponse, error)
+	FollowCreate(ctx context.Context, in *FollowCreateRequest, opts ...grpc.CallOption) (*FollowCreateResponse, error)
+	FollowDelete(ctx context.Context, in *FollowDeleteRequest, opts ...grpc.CallOption) (*FollowDeleteResponse, error)
+	FollowingsFetch(ctx context.Context, in *FollowingsFetchRequest, opts ...grpc.CallOption) (*FollowingsFetchResponse, error)
+	FollowersFetch(ctx context.Context, in *FollowersFetchRequest, opts ...grpc.CallOption) (*FollowersFetchResponse, error)
+	FollowsCounterFetch(ctx context.Context, in *FollowsCounterFetchRequest, opts ...grpc.CallOption) (*FollowsCounterFetchResponse, error)
 }
 
 type socialServiceClient struct {
@@ -189,6 +199,51 @@ func (c *socialServiceClient) PostCommentDelete(ctx context.Context, in *PostCom
 	return out, nil
 }
 
+func (c *socialServiceClient) FollowCreate(ctx context.Context, in *FollowCreateRequest, opts ...grpc.CallOption) (*FollowCreateResponse, error) {
+	out := new(FollowCreateResponse)
+	err := c.cc.Invoke(ctx, SocialService_FollowCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) FollowDelete(ctx context.Context, in *FollowDeleteRequest, opts ...grpc.CallOption) (*FollowDeleteResponse, error) {
+	out := new(FollowDeleteResponse)
+	err := c.cc.Invoke(ctx, SocialService_FollowDelete_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) FollowingsFetch(ctx context.Context, in *FollowingsFetchRequest, opts ...grpc.CallOption) (*FollowingsFetchResponse, error) {
+	out := new(FollowingsFetchResponse)
+	err := c.cc.Invoke(ctx, SocialService_FollowingsFetch_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) FollowersFetch(ctx context.Context, in *FollowersFetchRequest, opts ...grpc.CallOption) (*FollowersFetchResponse, error) {
+	out := new(FollowersFetchResponse)
+	err := c.cc.Invoke(ctx, SocialService_FollowersFetch_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) FollowsCounterFetch(ctx context.Context, in *FollowsCounterFetchRequest, opts ...grpc.CallOption) (*FollowsCounterFetchResponse, error) {
+	out := new(FollowsCounterFetchResponse)
+	err := c.cc.Invoke(ctx, SocialService_FollowsCounterFetch_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SocialServiceServer is the server API for SocialService service.
 // All implementations must embed UnimplementedSocialServiceServer
 // for forward compatibility
@@ -207,6 +262,11 @@ type SocialServiceServer interface {
 	PostCommentCreate(context.Context, *PostCommentCreateRequest) (*PostCommentCreateResponse, error)
 	PostCommentsFetch(context.Context, *PostCommentsFetchRequest) (*PostCommentsFetchResponse, error)
 	PostCommentDelete(context.Context, *PostCommentDeleteRequest) (*PostCommentDeleteResponse, error)
+	FollowCreate(context.Context, *FollowCreateRequest) (*FollowCreateResponse, error)
+	FollowDelete(context.Context, *FollowDeleteRequest) (*FollowDeleteResponse, error)
+	FollowingsFetch(context.Context, *FollowingsFetchRequest) (*FollowingsFetchResponse, error)
+	FollowersFetch(context.Context, *FollowersFetchRequest) (*FollowersFetchResponse, error)
+	FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error)
 	mustEmbedUnimplementedSocialServiceServer()
 }
 
@@ -255,6 +315,21 @@ func (UnimplementedSocialServiceServer) PostCommentsFetch(context.Context, *Post
 }
 func (UnimplementedSocialServiceServer) PostCommentDelete(context.Context, *PostCommentDeleteRequest) (*PostCommentDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostCommentDelete not implemented")
+}
+func (UnimplementedSocialServiceServer) FollowCreate(context.Context, *FollowCreateRequest) (*FollowCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FollowCreate not implemented")
+}
+func (UnimplementedSocialServiceServer) FollowDelete(context.Context, *FollowDeleteRequest) (*FollowDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FollowDelete not implemented")
+}
+func (UnimplementedSocialServiceServer) FollowingsFetch(context.Context, *FollowingsFetchRequest) (*FollowingsFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FollowingsFetch not implemented")
+}
+func (UnimplementedSocialServiceServer) FollowersFetch(context.Context, *FollowersFetchRequest) (*FollowersFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FollowersFetch not implemented")
+}
+func (UnimplementedSocialServiceServer) FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FollowsCounterFetch not implemented")
 }
 func (UnimplementedSocialServiceServer) mustEmbedUnimplementedSocialServiceServer() {}
 
@@ -521,6 +596,96 @@ func _SocialService_PostCommentDelete_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SocialService_FollowCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FollowCreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).FollowCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_FollowCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).FollowCreate(ctx, req.(*FollowCreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_FollowDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FollowDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).FollowDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_FollowDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).FollowDelete(ctx, req.(*FollowDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_FollowingsFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FollowingsFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).FollowingsFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_FollowingsFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).FollowingsFetch(ctx, req.(*FollowingsFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_FollowersFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FollowersFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).FollowersFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_FollowersFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).FollowersFetch(ctx, req.(*FollowersFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_FollowsCounterFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FollowsCounterFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).FollowsCounterFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_FollowsCounterFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).FollowsCounterFetch(ctx, req.(*FollowsCounterFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SocialService_ServiceDesc is the grpc.ServiceDesc for SocialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -583,6 +748,26 @@ var SocialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostCommentDelete",
 			Handler:    _SocialService_PostCommentDelete_Handler,
+		},
+		{
+			MethodName: "FollowCreate",
+			Handler:    _SocialService_FollowCreate_Handler,
+		},
+		{
+			MethodName: "FollowDelete",
+			Handler:    _SocialService_FollowDelete_Handler,
+		},
+		{
+			MethodName: "FollowingsFetch",
+			Handler:    _SocialService_FollowingsFetch_Handler,
+		},
+		{
+			MethodName: "FollowersFetch",
+			Handler:    _SocialService_FollowersFetch_Handler,
+		},
+		{
+			MethodName: "FollowsCounterFetch",
+			Handler:    _SocialService_FollowsCounterFetch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
