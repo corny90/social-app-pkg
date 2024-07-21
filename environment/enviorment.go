@@ -13,42 +13,56 @@ var startEnvironment string = os.Getenv("APP_ENV")
 var currentDir, _ = os.Getwd()
 
 func GetEnvPath(env string) (string, error) {
-	var setEnv string
+	var setEnv = filepath.Join(currentDir, ".env")
+
+	if env == "dev" {
+		setEnv = filepath.Join(currentDir, "../.dev.env")
+	}
 
 	switch env {
 	case "dev":
-		setEnv = filepath.Join(currentDir, "../.dev.env")
+		EnvName = "DEV"
+	case "local":
 		EnvName = "LOCAL"
-	case "docker:staging":
-		setEnv = filepath.Join(currentDir, ".env")
+	case "staging":
 		EnvName = "STAGING"
-	case "docker:local":
-		setEnv = filepath.Join(currentDir, ".env")
-		EnvName = "LOCAL·DOCKER"
+	case "production":
+		EnvName = "PRODUCTION"
 	default:
 		if _, err := os.Stat("/.dockerenv"); err != nil {
 			return "", errors.New("no environment variable set. If you not run in Docker environment, add 'APP_ENV=dev' in the front of run command")
 		}
-		EnvName = "STAGING"
-		return env, nil
-
 	}
 
 	return setEnv, nil
 }
 
 func SetEnv() (string, error) {
-	envPath, err := GetEnvPath(startEnvironment)
-	if err != nil {
-		return "", err
-	}
+	var envPath = filepath.Join(currentDir, ".env")
 
-	if envPath != "" {
+	if startEnvironment == "dev" {
+		envPath = filepath.Join(currentDir, "../.dev.env")
+
 		err := godotenv.Load(envPath)
 		if err != nil {
 			return "", errors.New(fmt.Sprintf("Failed to load env file %v: %v", envPath, err))
 		}
 		return EnvName, nil
+	}
+
+	switch startEnvironment {
+	case "dev":
+		EnvName = "DEV"
+	case "local":
+		EnvName = "LOCAL"
+	case "staging":
+		EnvName = "STAGING"
+	case "production":
+		EnvName = "PRODUCTION"
+	default:
+		if _, err := os.Stat("/.dockerenv"); err != nil {
+			return "", errors.New("no environment variable set. If you not run in Docker environment, add 'APP_ENV=dev' in the front of run command")
+		}
 	}
 
 	return EnvName, nil
