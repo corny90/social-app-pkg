@@ -2,8 +2,9 @@ package behaviour
 
 import (
 	"encoding/json"
-	"github.com/gocql/gocql"
 	"time"
+
+	"github.com/gocql/gocql"
 )
 
 type TrackRecord struct {
@@ -13,6 +14,7 @@ type TrackRecord struct {
 	ActionLike    bool       `json:"actionLike"`
 	ActionComment bool       `json:"actionComment"`
 	ViewDuration  int        `json:"viewDuration"`
+	ViewCount     int        `json:"viewCount"`
 	Clicks        Clicks     `json:"clicks"`
 	CreatedAt     time.Time  `json:"createdAt"`
 	Keywords      []string   `json:"keywords"`
