@@ -20,6 +20,11 @@ type TrackerPayloadRequest struct {
 	Clicks       Clicks   `json:"clicks"`
 }
 
+type ClickTrackerPayloadRequest struct {
+	UserID string `json:"userId"`
+	PostID string `json:"postId"`
+}
+
 type Clicks struct {
 	PostUser bool `json:"post_user"`
 	Views    bool `json:"views"`
