@@ -21,8 +21,13 @@ type TrackerPayloadRequest struct {
 }
 
 type ClickTrackerPayloadRequest struct {
-	UserID string `json:"userId"`
-	PostID string `json:"postId"`
+	UserID      string `json:"userId"`
+	PostID      string `json:"postId"`
+	ClickAction string `json:"clickAction"`
+
+	// AUX optional data based on ClickAction
+	PeerUserID string `json:"peerUserId,omitempty"`
+	Comment    string `json:"comment,omitempty"`
 }
 
 type Clicks struct {
