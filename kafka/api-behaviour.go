@@ -12,12 +12,17 @@ type Payload struct {
 // API-BEHAVIOUR - TRACKER
 
 type TrackerPayloadRequest struct {
-	UserID    string   `json:"userId"`
-	PostID    string   `json:"postId"`
-	TrackType string   `json:"trackType"`
-	Duration  int      `json:"duration"`
-	Keywords  []string `json:"keywords"`
-	Clicks    Clicks   `json:"clicks"`
+	UserID       string   `json:"userId"`
+	PostID       string   `json:"postId"`
+	TrackType    string   `json:"trackType"`
+	ViewDuration int      `json:"viewDuration"`
+	Keywords     []string `json:"keywords"`
+	Clicks       Clicks   `json:"clicks"`
+}
+
+type ClickTrackerPayloadRequest struct {
+	UserID string `json:"userId"`
+	PostID string `json:"postId"`
 }
 
 type Clicks struct {
