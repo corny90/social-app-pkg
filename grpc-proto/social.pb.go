@@ -787,6 +787,7 @@ func (x *PostsFetchByKeywordsResponse) GetPagesStates() map[string][]byte {
 	return nil
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POSTS FETCH ALL KEYWORDS
 type PostsFetchAllKeywordsRequest struct {
 	state         protoimpl.MessageState
@@ -890,6 +891,7 @@ func (x *PostsFetchAllKeywordsResponse) GetPageState() []byte {
 	return nil
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POST TOGGLE LIKE
 type PostToggleLikeRequest struct {
 	state         protoimpl.MessageState
@@ -1206,6 +1208,7 @@ func (x *PostFetchViewsResponse) GetPageState() []byte {
 	return nil
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POST COMMENT CREATE
 type PostCommentCreateRequest struct {
 	state         protoimpl.MessageState
@@ -1514,6 +1517,7 @@ func (*PostCommentDeleteResponse) Descriptor() ([]byte, []int) {
 	return file_grpc_proto_social_proto_rawDescGZIP(), []int{27}
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // FOLLOW CREATE
 type FollowCreateRequest struct {
 	state         protoimpl.MessageState
@@ -2454,6 +2458,7 @@ func (x *PostComment) GetContent() string {
 	return ""
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 type CommentReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2604,6 +2609,7 @@ func (x *CommentLike) GetLikedAt() string {
 	return ""
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 type Follow struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

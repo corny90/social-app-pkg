@@ -103,6 +103,7 @@ message PostsFetchByKeywordsResponse {
   map<string, bytes> pages_states = 2;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POSTS FETCH ALL KEYWORDS
 message PostsFetchAllKeywordsRequest {
   bytes page_state = 1;
@@ -112,6 +113,7 @@ message PostsFetchAllKeywordsResponse {
   bytes page_state = 2;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POST TOGGLE LIKE
 message PostToggleLikeRequest {
   string post_id = 1;
@@ -139,6 +141,7 @@ message PostFetchViewsResponse {
   bytes page_state = 2;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 // POST COMMENT CREATE
 message PostCommentCreateRequest {
   PostComment comment = 1;
@@ -165,6 +168,7 @@ message PostCommentDeleteRequest {
 }
 message PostCommentDeleteResponse {}
 
+// ---------------------------------------------------------------------------------------------------------------------
 // FOLLOW CREATE
 message FollowCreateRequest {
   string follower_id = 1;
@@ -256,6 +260,7 @@ message PostComment {
   string content = 6;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 message CommentReply {
   string parent_comment_id = 1;
   string reply_id = 2;
@@ -271,6 +276,7 @@ message CommentLike {
   string liked_at = 3;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
 message Follow {
   string follower_id = 1;
   string following_id = 2;
