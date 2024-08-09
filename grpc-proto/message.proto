@@ -11,6 +11,15 @@ service MessageService {
   rpc PingTasksQueue (PingTasksQueueRequest) returns (PingTasksQueueResponse);
   rpc CreateTaskMessage (CreateTaskMessageRequest) returns (CreateTaskMessageResponse);
   rpc CompleteTaskMessage (CompleteTaskMessageRequest) returns (CompleteTaskMessageResponse);
+
+  rpc UserSendMessage (UserSendMessageRequest) returns (UserSendMessageResponse);
+  rpc EditMessage (EditMessageRequest) returns (EditMessageResponse);
+  rpc FetchMessage (FetchMessageRequest) returns (FetchMessageResponse);
+  rpc DeleteMessage (DeleteMessageRequest) returns (DeleteMessageResponse);
+  rpc FetchConversationMessages (FetchConversationMessagesRequest) returns (FetchConversationMessagesResponse);
+  rpc DeleteConversation (DeleteConversationRequest) returns (DeleteConversationResponse);
+  rpc FetchAllUserConversations (FetchAllUserConversationsRequest) returns (FetchAllUserConversationsResponse);
+
 }
 
 //--------------------------------------
@@ -20,6 +29,16 @@ message PingApiMessageRequest {}
 message PingApiMessageResponse {
   string status = 1;
 }
+
+//--------------------------------------
+// PING Task Queue - BullMQ
+message PingTasksQueueRequest {}
+
+message PingTasksQueueResponse {
+  string status = 1;
+}
+
+
 
 //--------------------------------------
 // Customer Message
@@ -36,6 +55,81 @@ message CustomerMessageResponse {
 }
 
 //--------------------------------------
+// Send User Message
+message UserSendMessageRequest {
+  string senderID = 1;
+  string recipientID = 2;
+  string content = 3;
+}
+message UserSendMessageResponse {
+  Message userMessage = 1;
+  Message botMessage = 2;
+}
+
+// Edit Message
+message EditMessageRequest {
+  string senderID = 1;
+  string messageID = 2;
+  string conversationID = 3;
+  string newContent = 4;
+}
+message EditMessageResponse {}
+
+// Fetch Message
+message FetchMessageRequest {
+  string senderID = 1;
+  string messageID = 2;
+  string conversationID = 3;
+}
+message FetchMessageResponse {
+  Message message = 1;
+}
+
+// Delete Message
+message DeleteMessageRequest {
+  string senderID = 1;
+  string messageID = 2;
+  string conversationID = 3;
+}
+message DeleteMessageResponse {}
+
+// Fetch Conversation Messages
+message FetchConversationMessagesRequest {
+  string senderID = 1;
+  string conversationID = 2;
+  bytes page_state = 3;
+}
+message FetchConversationMessagesResponse {
+  repeated Message messages = 1;
+  bytes page_state = 2;
+}
+
+// Delete Conversation
+message DeleteConversationRequest {
+  string senderID = 1;
+  string conversationID = 2;
+}
+message DeleteConversationResponse {}
+
+// Fetch Conversation Messages
+message FetchAllUserConversationsRequest {
+  string senderID = 1;
+  bytes page_state = 2;
+}
+message FetchAllUserConversationsResponse {
+  repeated Conversation conversations = 1;
+  bytes page_state = 2;
+}
+
+
+
+
+
+
+
+
+
+//--------------------------------------
 // Chatbot Message
 message ChatbotMessageRequest {
   repeated string recipient = 1;
@@ -43,14 +137,6 @@ message ChatbotMessageRequest {
 }
 
 message ChatbotMessageResponse {
-  string status = 1;
-}
-
-//--------------------------------------
-// PING Task Queue - BullMQ
-message PingTasksQueueRequest {}
-
-message PingTasksQueueResponse {
   string status = 1;
 }
 
@@ -78,15 +164,28 @@ message CompleteTaskMessageResponse {
 }
 
 //--------------------------------------
+
+// Conversation
+message Conversation {
+  string conversationID = 1;
+  repeated string participants = 2;
+  string createdAt = 3;
+  string editedAt = 4;
+  string metadata = 5;
+  string state = 6;
+}
+
+
 // Message
 message Message {
   string messageID = 1;
   string conversationID = 2;
   string sender = 3;
-  string content = 4;
-  int64 timestamp = 5;
+  string senderType = 4;
+  string content = 5;
   string state = 6;
-  string metadata = 7;
+  string createdAt = 7;
+  string metadata = 8;
 }
 
 // Task Data
