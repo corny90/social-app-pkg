@@ -27,7 +27,7 @@ type ClickTrackerPayloadRequest struct {
 
 	// AUX optional data based on ClickAction
 	PeerUserID string `json:"peerUserId,omitempty"`
-	Comment    string `json:"comment,omitempty"`
+	CommentID  string `json:"commentId,omitempty"`
 }
 
 type Clicks struct {
