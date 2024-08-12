@@ -2,8 +2,6 @@ module github.com/corny90/social-app-pkg
 
 go 1.21
 
-toolchain go1.22.5
-
 require (
 	github.com/gocql/gocql v1.6.0
 	github.com/joho/godotenv v1.5.1
