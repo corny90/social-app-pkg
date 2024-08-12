@@ -1,9 +1,10 @@
 package social
 
 import (
+	"time"
+
 	proto "github.com/corny90/social-app-pkg/grpc-proto"
 	"github.com/gocql/gocql"
-	"time"
 )
 
 type Post struct {
@@ -15,6 +16,7 @@ type Post struct {
 	PrivateType   string         `json:"privateType"` // "only_me", "only_to_target", "to_a_public"
 	ContentText   string         `json:"contentText"`
 	ContentStatus string         `json:"contentStatus"`
+	LinkUrl       string         `json:"linkUrl"` // optional promoted post link
 	Keywords      []string       `json:"keywords"`
 	Media         []*proto.Media `json:"media"`
 	Counters      PostCounter    `json:"counters"`
