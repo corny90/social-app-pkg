@@ -2,7 +2,7 @@ syntax = "proto3";
 import "grpc-proto/media.proto";
 
 package social;
-option go_package = "/grpc-proto";
+option go_package = "/grpc-proto;grpc_proto";
 
 // ------------------------------------------------------------------------------------------------------
 // >>> SERVICE
@@ -225,11 +225,12 @@ message Post {
   string private_type = 6; // "only_me", "only_to_target", "to_a_public"
   string content_text = 7;
   string content_status = 8;
-  repeated string keywords = 9;
-  repeated media.Media media = 10;
-  PostCounter counters = 11;
-  bool is_liked = 12;
-  bool is_virtual = 13;
+  string link_url = 9;
+  repeated string keywords = 10;
+  repeated media.Media media = 11;
+  PostCounter counters = 12;
+  bool is_liked = 13;
+  bool is_virtual = 14;
 }
 
 message PostCounter {
