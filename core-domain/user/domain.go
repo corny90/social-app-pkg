@@ -23,11 +23,10 @@ var (
 
 // User struct ---------------------------------------------------------------------------------------------------------
 type User struct {
-	ID           gocql.UUID `json:"id,omitempty"`
+	UserID       gocql.UUID `json:"user_id,omitempty"`
 	Username     string     `json:"username" validate:"required,min=4,max=20"`
 	Email        string     `json:"email" validate:"required,email"`
 	Password     string     `json:"password" validate:"required,min=4,max=20"`
-	Jwt          string     `json:"jwt"`
 	Phone        string     `json:"phone"`
 	Birthday     string     `json:"birthday"`
 	Avatar       string     `json:"avatar"`
@@ -39,8 +38,7 @@ type User struct {
 	Location     Location   `json:"-"`        // structs for easier handling in Go
 	Account      Account    `json:"-"`        // structs for easier handling in Go
 
-	Info *Info `json:"info,omitempty"`
-	//Media []*proto.Media `json:"media,omitempty"`
+	Info  *Info         `json:"info,omitempty"`
 	Posts []social.Post `json:"posts,omitempty"`
 }
 
@@ -80,7 +78,6 @@ type Update struct {
 	Username     string   `json:"username" validate:"omitempty,min=4,max=20"`
 	Email        string   `json:"email" validate:"omitempty,email"`
 	Password     string   `json:"password"`
-	Jwt          string   `json:"jwt"`
 	Phone        string   `json:"phone"`
 	Birthday     string   `json:"birthday"`
 	Avatar       string   `json:"avatar"`
@@ -93,13 +90,13 @@ type Update struct {
 }
 
 type Info struct {
-	UserID           gocql.UUID   `json:"user_id"`
-	About            AboutInfo    `json:"about"`
-	Social           SocialInfo   `json:"social"`
-	Physical         PhysicalInfo `json:"physical"`
-	Others           OtherInfo    `json:"others"`
-	Behavior         BehaviorInfo `json:"behavior"`
-	PreferedKeywords []string     `json:"prefered_keywords"`
+	UserID            gocql.UUID   `json:"user_id"`
+	About             AboutInfo    `json:"about"`
+	Social            SocialInfo   `json:"social"`
+	Physical          PhysicalInfo `json:"physical"`
+	Others            OtherInfo    `json:"others"`
+	Behavior          BehaviorInfo `json:"behavior"`
+	PreferredKeywords []string     `json:"preferred_keywords"`
 }
 
 type AboutInfo struct {
