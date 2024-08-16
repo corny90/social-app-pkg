@@ -3,9 +3,8 @@ package user
 import (
 	"errors"
 	"github.com/corny90/social-app-pkg/core-domain/social"
-	"time"
-
 	"github.com/gocql/gocql"
+	"time"
 )
 
 var (
@@ -23,23 +22,59 @@ var (
 
 // User struct ---------------------------------------------------------------------------------------------------------
 type User struct {
-	UserID       gocql.UUID `json:"user_id,omitempty"`
-	Username     string     `json:"username" validate:"required,min=4,max=20"`
-	Email        string     `json:"email" validate:"required,email"`
-	Password     string     `json:"password" validate:"required,min=4,max=20"`
-	Phone        string     `json:"phone"`
-	Birthday     string     `json:"birthday"`
-	Avatar       string     `json:"avatar"`
-	DateJoined   time.Time  `json:"date_joined"`
-	DateEdited   time.Time  `json:"date_edited"`
-	AccountType  string     `json:"account_type"`
-	LocationJSON string     `json:"location"` // JSON strings for database storage
-	AccountJSON  string     `json:"account"`  // JSON strings for database storage
-	Location     Location   `json:"-"`        // structs for easier handling in Go
-	Account      Account    `json:"-"`        // structs for easier handling in Go
+	UserID      gocql.UUID `json:"user_id,omitempty"`
+	Username    string     `json:"username" validate:"required,min=4,max=20"`
+	Email       string     `json:"email" validate:"required,email"`
+	Password    string     `json:"password" validate:"required,min=4,max=20"`
+	CreatedAt   time.Time  `json:"created_at"`
+	EditedAt    time.Time  `json:"edited_at"`
+	AccountType string     `json:"account_type"`
 
-	Info  *Info         `json:"info,omitempty"`
+	Info  *UserInfo     `json:"info,omitempty"`
 	Posts []social.Post `json:"posts,omitempty"`
+}
+type Users struct {
+	Users []User `json:"users"`
+}
+
+type UserBase struct {
+	UserID      gocql.UUID `json:"user_id"`
+	Username    string     `json:"username"`
+	Email       string     `json:"email"`
+	Password    string     `json:"password"`
+	CreatedAt   time.Time  `json:"created_at"`
+	EditedAt    time.Time  `json:"edited_at"`
+	AccountType string     `json:"account_type"`
+}
+type UsersBase struct {
+	Users []UserBase `json:"users"`
+}
+
+type UserInfo struct {
+	UserID            gocql.UUID   `json:"user_id"`
+	About             AboutInfo    `json:"about"`
+	Social            SocialInfo   `json:"social"`
+	Physical          PhysicalInfo `json:"physical"`
+	Others            OtherInfo    `json:"others"`
+	PreferredKeywords []string     `json:"preferred_keywords"`
+	Phone             string       `json:"phone"`
+	Birthday          string       `json:"birthday"`
+	Location          Location     `json:"-"`
+}
+
+type UserType struct {
+	Type   string     `json:"type"`
+	UserID gocql.UUID `json:"user_id"`
+}
+
+type UserByEmail struct {
+	Email  string     `json:"email"`
+	UserID gocql.UUID `json:"user_id"`
+}
+
+type UserByUsername struct {
+	Username string     `json:"username"`
+	UserID   gocql.UUID `json:"user_id"`
 }
 
 // Location struct for user's location information
@@ -59,11 +94,6 @@ type Account struct {
 	Winks              []string `json:"winks"`
 	MyWinks            []string `json:"my_winks"`
 	Visitors           []string `json:"visitors"`
-}
-
-// Users struct --------------------------------------------------------------------------------------------------------
-type Users struct {
-	Users []User `json:"users"`
 }
 
 // Login struct --------------------------------------------------------------------------------------------------------
@@ -87,16 +117,6 @@ type Update struct {
 	AccountJSON  string   `json:"account"`  // JSON strings for database storage
 	Location     Location `json:"-"`        // structs for easier handling in Go
 	Account      Account  `json:"-"`        // structs for easier handling in Go
-}
-
-type Info struct {
-	UserID            gocql.UUID   `json:"user_id"`
-	About             AboutInfo    `json:"about"`
-	Social            SocialInfo   `json:"social"`
-	Physical          PhysicalInfo `json:"physical"`
-	Others            OtherInfo    `json:"others"`
-	Behavior          BehaviorInfo `json:"behavior"`
-	PreferredKeywords []string     `json:"preferred_keywords"`
 }
 
 type AboutInfo struct {

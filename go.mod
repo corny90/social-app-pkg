@@ -7,6 +7,8 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/kataras/golog v0.1.9
 	github.com/kataras/iris/v12 v12.2.1
+	github.com/nwtgck/go-fakelish v0.1.3
+	golang.org/x/text v0.17.0
 	google.golang.org/grpc v1.65.0
 	google.golang.org/protobuf v1.34.2
 )
@@ -41,6 +43,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/tdewolff/minify/v2 v2.12.7 // indirect
 	github.com/tdewolff/parse/v2 v2.6.6 // indirect
+	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -48,7 +51,6 @@ require (
 	golang.org/x/crypto v0.26.0 // indirect
 	golang.org/x/net v0.28.0 // indirect
 	golang.org/x/sys v0.24.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240808171019-573a1156607a // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
