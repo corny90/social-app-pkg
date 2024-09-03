@@ -9,14 +9,14 @@ import (
 )
 
 var EnvName string
-var startEnvironment string = os.Getenv("APP_ENV")
-var currentDir, _ = os.Getwd()
+var StartEnvironment string = os.Getenv("APP_ENV")
+var CurrentDir, _ = os.Getwd()
 
 func GetEnvPath(env string) (string, error) {
-	var setEnv = filepath.Join(currentDir, ".env")
+	var setEnv = filepath.Join(CurrentDir, ".env")
 
 	if env == "dev" {
-		setEnv = filepath.Join(currentDir, "../.dev.env")
+		setEnv = filepath.Join(CurrentDir, "../.dev.env")
 	}
 
 	switch env {
@@ -38,19 +38,19 @@ func GetEnvPath(env string) (string, error) {
 }
 
 func SetEnv() (string, error) {
-	var envPath = filepath.Join(currentDir, ".env")
+	var envPath = filepath.Join(CurrentDir, ".env")
 
-	if startEnvironment == "dev" {
-		envPath = filepath.Join(currentDir, "../.dev.env")
+	if StartEnvironment == "dev" {
+		envPath = filepath.Join(CurrentDir, "../.dev.env")
 
 		err := godotenv.Load(envPath)
 		if err != nil {
 			return "", errors.New(fmt.Sprintf("Failed to load env file %v: %v", envPath, err))
 		}
-		return EnvName, nil
+		//return EnvName, nil
 	}
 
-	switch startEnvironment {
+	switch StartEnvironment {
 	case "dev":
 		EnvName = "DEV"
 	case "local":
@@ -66,4 +66,22 @@ func SetEnv() (string, error) {
 	}
 
 	return EnvName, nil
+}
+
+func GetDomainDependingEnv() (string, error) {
+
+	var domain string
+	if StartEnvironment == "" {
+		return "", errors.New("no environment variable set")
+	} else if StartEnvironment == "dev" {
+		domain = "localhost"
+	} else if StartEnvironment == "local" {
+		domain = ".dating.local"
+	} else if StartEnvironment == "staging" || StartEnvironment == "production" {
+		domain = ".senti.live"
+	} else {
+		return "", errors.New("a problem occurred while setting the domain based on environment variable")
+	}
+
+	return domain, nil
 }
