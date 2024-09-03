@@ -38,6 +38,16 @@ type LogRequest struct {
 	LogEnvironment    string        // Environment in which the log was generated
 }
 
+type LogWS struct {
+	LogType           string        // Type of log
+	LogStartTimestamp string        // Timestamp when the request started
+	LogDuration       time.Duration // Duration of the request
+	LogStatusCode     int           // Status code of the response
+	LogAction         string        // WEBSOCKET action
+	LogData           string        // Data sent over the websocket
+	LogEnvironment    string        // Environment in which the log was generated
+}
+
 type LogEvent struct {
 	LogType           string
 	LogEnvironment    string
@@ -105,6 +115,67 @@ func ReqLog(logStatusCode int, logMethod string, logPath string) LogRequest {
 	return logInfo
 }
 
+func LogHttp(logStatusCode int, logMethod string, logPath string) LogRequest {
+	start := time.Now()
+
+	logInfo := LogRequest{
+		LogType:           GetLogTypeLabel("HTTP"),
+		LogStartTimestamp: start.Format("2006/01/02 15:04:05"),
+		LogDuration:       time.Since(start),
+		LogStatusCode:     logStatusCode,
+		LogMethod:         logMethod,
+		LogPath:           logPath,
+		LogEnvironment:    environment.EnvName,
+	}
+
+	logMessage := fmt.Sprintf("%s%s%s %s%s%s %v%v%v %s%s%s %s%s%s %s%s%s %v%v%v %s%s%s %v%v%v",
+		ColorCyan, logInfo.LogType, ColorReset,
+		ColorWhite, logInfo.LogStartTimestamp, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		ColorWhite, logInfo.LogDuration, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		GetStatusCodeColor(logInfo.LogStatusCode), logInfo.LogMethod, ColorReset,
+		GetStatusCodeColor(logInfo.LogStatusCode), logInfo.LogStatusCode, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		ColorYellow, logInfo.LogPath, ColorReset,
+	)
+	fmt.Println(logMessage)
+	return logInfo
+}
+
+func LogWebsocket(logStatusCode int, logAction string, logData string) LogWS {
+	start := time.Now()
+
+	logInfo := LogWS{
+		LogType:           GetLogTypeLabel("WS"),
+		LogStartTimestamp: start.Format("2006/01/02 15:04:05"),
+		LogDuration:       time.Since(start),
+		LogStatusCode:     logStatusCode,
+		LogAction:         logAction,
+		LogData:           logData,
+	}
+
+	logMessage := fmt.Sprintf("%s%s%s %s%s%s %v%v%v %s%s%s %s%s%s %v%v%v %v%v%v %s%s%s %v%v%v",
+		ColorCyan, logInfo.LogType, ColorReset,
+		ColorWhite, logInfo.LogStartTimestamp, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		ColorWhite, logInfo.LogDuration, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		GetStatusCodeColor(logInfo.LogStatusCode), logInfo.LogAction, ColorReset,
+		GetStatusCodeColor(logInfo.LogStatusCode), logInfo.LogStatusCode, ColorReset,
+		ColorGray, "|", ColorReset,
+
+		ColorWhite, logInfo.LogData, ColorReset,
+	)
+	fmt.Println(logMessage)
+	return logInfo
+}
+
 func GetStatusCodeColor(statusCode int) string {
 	var statusColor string
 	switch {
@@ -147,13 +218,13 @@ func GetLogTypeLabel(logType string) string {
 	var label string
 	switch logType {
 	case "REQ":
-		label = "[REQ  ]"
+		label = "[REQ__]"
 	case "INFO":
-		label = "[INFO ]"
+		label = "[INFO_]"
 	case "DEBUG":
 		label = "[DEBUG]"
 	case "WARN":
-		label = "[WARN ]"
+		label = "[WARN_]"
 	case "ERROR":
 		label = "[ERROR]"
 	case "FATAL":
