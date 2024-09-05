@@ -217,6 +217,10 @@ func GetMethodColor(methodType string) string {
 func GetLogTypeLabel(logType string) string {
 	var label string
 	switch logType {
+	case "HTTP":
+		label = "[HTTP_]"
+	case "WS":
+		label = "[WS___]"
 	case "REQ":
 		label = "[REQ__]"
 	case "INFO":
@@ -237,6 +241,10 @@ func GetLogTypeLabel(logType string) string {
 
 func GetLogTypeColor(logType string) string {
 	switch logType {
+	case "HTTP":
+		return ColorCyan
+	case "WS":
+		return ColorCyan
 	case "REQ":
 		return ColorCyan
 	case "INFO":
