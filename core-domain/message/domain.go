@@ -12,8 +12,6 @@ import (
 type UserMessageRequest struct {
 	RecipientUUID gocql.UUID `json:"recipient"`
 	Content       string     `json:"content"`
-	Location      string     `json:"location"`
-	Date          string     `json:"date"`
 }
 
 // ---------------------------------------------------------
