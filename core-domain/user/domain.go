@@ -52,6 +52,8 @@ type UsersBase struct {
 
 type UserInfo struct {
 	UserID            gocql.UUID   `json:"user_id"`
+	GivenName         string       `json:"given_name"`
+	AvatarUrl         string       `json:"avatar_url"`
 	About             AboutInfo    `json:"about"`
 	Social            SocialInfo   `json:"social"`
 	Physical          PhysicalInfo `json:"physical"`
@@ -79,6 +81,7 @@ type UserByUsername struct {
 
 // Location struct for user's location information
 type Location struct {
+	String  string `json:"string"`
 	Country string `json:"country"`
 	City    string `json:"city"`
 	Geo     string `json:"geo"`
@@ -120,12 +123,14 @@ type Update struct {
 }
 
 type AboutInfo struct {
+	Personality        []string `json:"personality"`
 	LookingFor         []string `json:"looking_for"`
 	SelfDescription    string   `json:"self_description"`
 	MyCharacteristics  []string `json:"my_characteristics"`
 	FavoriteActivities []string `json:"favorite_activities"`
 	WhatTurnsMeOn      []string `json:"what_turns_me_on"`
 	Interests          []string `json:"interests"`
+	Language           string   `json:"language"`
 }
 
 type SocialInfo struct {

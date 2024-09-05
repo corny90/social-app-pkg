@@ -13,29 +13,8 @@ type UserMessageRequest struct {
 	Content       string     `json:"content"`
 }
 
-type LLMRequest struct {
-	ParticipantVirtualUsername string       `json:"username_v"`
-	ParticipantVirtualUUID     string       `json:"user_v_id"`
-	ParticipantRealUUID        string       `json:"user_r_id"`
-	Location                   string       `json:"location"`
-	Places                     []string     `json:"places"`
-	Day                        string       `json:"day"`
-	DayMonth                   string       `json:"day_month"`
-	ChatHistory                []LLMMessage `json:"chat_history"`
-	ConversationUUID           string       `json:"conversation_id"`
-	IsPremium                  bool         `json:"is_premium"`
-	FollowUp                   bool         `json:"follow_up"`
-	Personality                []string     `json:"personality"`
-}
-
-type RegenerateRequest struct {
-	ParticipantRealID         gocql.UUID  `json:"participant_r_id"`
-	ParticipantVirtualID      gocql.UUID  `json:"participant_v_id"`
-	ParticipantRealProfile    UserProfile `json:"participant_r_profile"`
-	ParticipantVirtualProfile UserProfile `json:"participant_v_profile"`
-	FeedbackMessage           string      `json:"feedback_message"`
-	FeedbackNote              string      `json:"feedback_note"`
-}
+// ---------------------------------------------------------
+// USER PROFILE MODEL
 
 type UserProfile struct {
 	Username           string   `json:"username"`
@@ -112,19 +91,6 @@ type MsgMetadata struct {
 }
 
 // ---------------------------------------------------------
-// LLM REQUESTS MODELS
-
-type LLMRequestBody struct {
-	Stream   bool         `json:"stream"`
-	Messages []LLMMessage `json:"messages"`
-}
-
-type LLMMessage struct {
-	Role    string `json:"role"`
-	Content string `json:"content"`
-}
-
-// ---------------------------------------------------------
 // FEEDBACK MODEL
 
 type Feedback struct {
@@ -151,15 +117,15 @@ type WsPayload struct {
 // KAFKA MODELS
 
 type KafkaLLMRequestPayload struct {
-	UserRID        string       `json:"user_r_id"`
-	UserVID        string       `json:"user_v_id"`
-	UsernameV      string       `json:"username_v"`
-	Location       string       `json:"location"`
-	Places         []string     `json:"places"`
-	Day            string       `json:"day"`
-	DayMonth       string       `json:"day_month"`
-	ChatHistory    []LLMMessage `json:"chat_history"`
-	ConversationID gocql.UUID   `json:"conversation_id"`
+	UserRID        string     `json:"user_r_id"`
+	UserVID        string     `json:"user_v_id"`
+	UsernameV      string     `json:"username_v"`
+	Location       string     `json:"location"`
+	Places         []string   `json:"places"`
+	Day            string     `json:"day"`
+	DayMonth       string     `json:"day_month"`
+	ChatHistory    []Message  `json:"chat_history"`
+	ConversationID gocql.UUID `json:"conversation_id"`
 }
 
 type KafkaLLMResponsePayload struct {
