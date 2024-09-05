@@ -1,8 +1,9 @@
 package message
 
 import (
-	"github.com/gocql/gocql"
 	"time"
+
+	"github.com/gocql/gocql"
 )
 
 // ---------------------------------------------------------
@@ -11,6 +12,8 @@ import (
 type UserMessageRequest struct {
 	RecipientUUID gocql.UUID `json:"recipient"`
 	Content       string     `json:"content"`
+	Location      string     `json:"location"`
+	Date          string     `json:"date"`
 }
 
 type LLMRequest struct {

@@ -231,6 +231,7 @@ message Post {
   PostCounter counters = 12;
   bool is_liked = 13;
   bool is_virtual = 14;
+  string username = 15;
 }
 
 message PostCounter {
