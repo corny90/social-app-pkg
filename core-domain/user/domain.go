@@ -2,9 +2,10 @@ package user
 
 import (
 	"errors"
+	"time"
+
 	"github.com/corny90/social-app-pkg/core-domain/social"
 	"github.com/gocql/gocql"
-	"time"
 )
 
 var (
@@ -61,7 +62,7 @@ type UserInfo struct {
 	PreferredKeywords []string     `json:"preferred_keywords"`
 	Phone             string       `json:"phone"`
 	Birthday          string       `json:"birthday"`
-	Location          Location     `json:"-"`
+	Location          Location     `json:"location"`
 }
 
 type UserType struct {

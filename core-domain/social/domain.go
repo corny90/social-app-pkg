@@ -22,6 +22,7 @@ type Post struct {
 	Counters      PostCounter    `json:"counters"`
 	IsLiked       bool           `json:"isLiked"`
 	IsVirtual     bool           `json:"isVirtual"`
+	Username      string         `json:"username"`
 }
 
 type PostCounter struct {
