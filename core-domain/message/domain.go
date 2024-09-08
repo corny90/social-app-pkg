@@ -49,6 +49,23 @@ type UserProfile struct {
 	SexSpot            string   `json:"sex_spot"`
 }
 
+// Response for frontend
+type ConversationRender struct {
+	ConversationID gocql.UUID    `json:"conversation_id"`
+	Participants   []Participant `json:"participants"`
+	CreatedAt      time.Time     `json:"created_at"`
+	EditedAt       time.Time     `json:"edited_at"`
+	Metadata       string        `json:"metadata"`
+	State          string        `json:"state"`
+}
+type Participant struct {
+	UserID    gocql.UUID `json:"user_id"`
+	UserType  string     `json:"user_type"` // r or v
+	UserRole  string     `json:"user_role"` // advertise or business
+	Username  string     `json:"username"`
+	AvatarUrl string     `json:"avatar_url"`
+}
+
 type ConversationBase struct {
 	ConversationID gocql.UUID   `json:"conversation_id"`
 	Participants   []gocql.UUID `json:"participants"`

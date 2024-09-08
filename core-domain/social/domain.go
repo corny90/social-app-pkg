@@ -80,6 +80,17 @@ type MediaFile struct {
 	OriginalFilename string
 }
 
+// Response for frontend
+type FollowsRender struct {
+	UserID    gocql.UUID `json:"user_id"`
+	UserType  string     `json:"user_type"` // r or v
+	UserRole  string     `json:"user_role"` // advertise or business
+	Username  string     `json:"username"`
+	AvatarUrl string     `json:"avatar_url"`
+	CreatedAt time.Time  `json:"created_at"` // the date of follow creation
+	Status    string     `json:"status"`
+}
+
 type Follows struct {
 	FollowingID gocql.UUID `json:"followingId"`
 	FollowerID  gocql.UUID `json:"followerId"`
