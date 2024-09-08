@@ -165,6 +165,23 @@ message CompleteTaskMessageResponse {
 
 //--------------------------------------
 
+message ConversationRender {
+  string conversationID = 1;
+  repeated Participant participants = 2;
+  string createdAt = 3;
+  string editedAt = 4;
+  string metadata = 5;
+  string state = 6;
+}
+
+message Participant {
+	string userID = 1;
+	string UserType =2;
+	string UserRole =3;
+	string Username =4;
+	string AvatarUrl =5;
+}
+
 // Conversation
 message Conversation {
   string conversationID = 1;
