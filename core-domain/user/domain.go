@@ -23,10 +23,10 @@ var (
 
 // User struct ---------------------------------------------------------------------------------------------------------
 type User struct {
-	UserID      gocql.UUID `json:"user_id,omitempty"`
-	Username    string     `json:"username" validate:"required,min=4,max=20"`
-	Email       string     `json:"email" validate:"required,email"`
-	Password    string     `json:"password" validate:"required,min=4,max=20"`
+	UserID      gocql.UUID `json:"user_id"`
+	Username    string     `json:"username"`
+	Email       string     `json:"email"`
+	Password    string     `json:"password"`
 	CreatedAt   time.Time  `json:"created_at"`
 	EditedAt    time.Time  `json:"edited_at"`
 	AccountType string     `json:"account_type"`
@@ -82,10 +82,10 @@ type UserByUsername struct {
 
 // Location struct for user's location information
 type Location struct {
-	String  string `json:"string"`
+	String  string `json:"string"` // "Ubud, Bali, Indonesia"
 	Country string `json:"country"`
 	City    string `json:"city"`
-	Geo     string `json:"geo"`
+	Geo     string `json:"geo"` // longitude and latitude
 }
 
 // Account struct for user's account information
@@ -100,11 +100,17 @@ type Account struct {
 	Visitors           []string `json:"visitors"`
 }
 
+// Register struct -----------------------------------------------------------------------------------------------------
+type Register struct {
+	Username string `json:"username" validate:"required,min=4,max=20"`
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=4,max=20"`
+}
+
 // Login struct --------------------------------------------------------------------------------------------------------
 type Login struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required,min=4,max=20"`
-	Jwt      string `json:"jwt"`
 }
 
 // Update struct -------------------------------------------------------------------------------------------------------
