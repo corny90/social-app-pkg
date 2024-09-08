@@ -19,11 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	MediaService_PingApiMedia_FullMethodName    = "/media.MediaService/PingApiMedia"
-	MediaService_PostUploadMedia_FullMethodName = "/media.MediaService/PostUploadMedia"
-	MediaService_PostFetchMedia_FullMethodName  = "/media.MediaService/PostFetchMedia"
-	MediaService_PostDeleteMedia_FullMethodName = "/media.MediaService/PostDeleteMedia"
-	MediaService_PostsFetchMedia_FullMethodName = "/media.MediaService/PostsFetchMedia"
+	MediaService_PingApiMedia_FullMethodName             = "/media.MediaService/PingApiMedia"
+	MediaService_PostUploadMedia_FullMethodName          = "/media.MediaService/PostUploadMedia"
+	MediaService_PostFetchMedia_FullMethodName           = "/media.MediaService/PostFetchMedia"
+	MediaService_PostDeleteMedia_FullMethodName          = "/media.MediaService/PostDeleteMedia"
+	MediaService_PostsFetchMedia_FullMethodName          = "/media.MediaService/PostsFetchMedia"
+	MediaService_AvatarMediaUpload_FullMethodName        = "/media.MediaService/AvatarMediaUpload"
+	MediaService_AvatarMediaFetch_FullMethodName         = "/media.MediaService/AvatarMediaFetch"
+	MediaService_AvatarMediaFetchMultiple_FullMethodName = "/media.MediaService/AvatarMediaFetchMultiple"
+	MediaService_AvatarMediaDelete_FullMethodName        = "/media.MediaService/AvatarMediaDelete"
 )
 
 // MediaServiceClient is the client API for MediaService service.
@@ -35,6 +39,10 @@ type MediaServiceClient interface {
 	PostFetchMedia(ctx context.Context, in *PostFetchMediaRequest, opts ...grpc.CallOption) (*PostFetchMediaResponse, error)
 	PostDeleteMedia(ctx context.Context, in *PostDeleteMediaRequest, opts ...grpc.CallOption) (*PostDeleteMediaResponse, error)
 	PostsFetchMedia(ctx context.Context, in *PostsFetchMediaRequest, opts ...grpc.CallOption) (*PostsFetchMediaResponse, error)
+	AvatarMediaUpload(ctx context.Context, in *AvatarMediaUploadRequest, opts ...grpc.CallOption) (*AvatarMediaUploadResponse, error)
+	AvatarMediaFetch(ctx context.Context, in *AvatarMediaFetchRequest, opts ...grpc.CallOption) (*AvatarMediaFetchResponse, error)
+	AvatarMediaFetchMultiple(ctx context.Context, in *AvatarMediaFetchMultipleRequest, opts ...grpc.CallOption) (*AvatarMediaFetchMultipleResponse, error)
+	AvatarMediaDelete(ctx context.Context, in *AvatarMediaDeleteRequest, opts ...grpc.CallOption) (*AvatarMediaDeleteResponse, error)
 }
 
 type mediaServiceClient struct {
@@ -90,6 +98,42 @@ func (c *mediaServiceClient) PostsFetchMedia(ctx context.Context, in *PostsFetch
 	return out, nil
 }
 
+func (c *mediaServiceClient) AvatarMediaUpload(ctx context.Context, in *AvatarMediaUploadRequest, opts ...grpc.CallOption) (*AvatarMediaUploadResponse, error) {
+	out := new(AvatarMediaUploadResponse)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaUpload_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mediaServiceClient) AvatarMediaFetch(ctx context.Context, in *AvatarMediaFetchRequest, opts ...grpc.CallOption) (*AvatarMediaFetchResponse, error) {
+	out := new(AvatarMediaFetchResponse)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetch_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mediaServiceClient) AvatarMediaFetchMultiple(ctx context.Context, in *AvatarMediaFetchMultipleRequest, opts ...grpc.CallOption) (*AvatarMediaFetchMultipleResponse, error) {
+	out := new(AvatarMediaFetchMultipleResponse)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetchMultiple_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mediaServiceClient) AvatarMediaDelete(ctx context.Context, in *AvatarMediaDeleteRequest, opts ...grpc.CallOption) (*AvatarMediaDeleteResponse, error) {
+	out := new(AvatarMediaDeleteResponse)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaDelete_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MediaServiceServer is the server API for MediaService service.
 // All implementations must embed UnimplementedMediaServiceServer
 // for forward compatibility
@@ -99,6 +143,10 @@ type MediaServiceServer interface {
 	PostFetchMedia(context.Context, *PostFetchMediaRequest) (*PostFetchMediaResponse, error)
 	PostDeleteMedia(context.Context, *PostDeleteMediaRequest) (*PostDeleteMediaResponse, error)
 	PostsFetchMedia(context.Context, *PostsFetchMediaRequest) (*PostsFetchMediaResponse, error)
+	AvatarMediaUpload(context.Context, *AvatarMediaUploadRequest) (*AvatarMediaUploadResponse, error)
+	AvatarMediaFetch(context.Context, *AvatarMediaFetchRequest) (*AvatarMediaFetchResponse, error)
+	AvatarMediaFetchMultiple(context.Context, *AvatarMediaFetchMultipleRequest) (*AvatarMediaFetchMultipleResponse, error)
+	AvatarMediaDelete(context.Context, *AvatarMediaDeleteRequest) (*AvatarMediaDeleteResponse, error)
 	mustEmbedUnimplementedMediaServiceServer()
 }
 
@@ -120,6 +168,18 @@ func (UnimplementedMediaServiceServer) PostDeleteMedia(context.Context, *PostDel
 }
 func (UnimplementedMediaServiceServer) PostsFetchMedia(context.Context, *PostsFetchMediaRequest) (*PostsFetchMediaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostsFetchMedia not implemented")
+}
+func (UnimplementedMediaServiceServer) AvatarMediaUpload(context.Context, *AvatarMediaUploadRequest) (*AvatarMediaUploadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AvatarMediaUpload not implemented")
+}
+func (UnimplementedMediaServiceServer) AvatarMediaFetch(context.Context, *AvatarMediaFetchRequest) (*AvatarMediaFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AvatarMediaFetch not implemented")
+}
+func (UnimplementedMediaServiceServer) AvatarMediaFetchMultiple(context.Context, *AvatarMediaFetchMultipleRequest) (*AvatarMediaFetchMultipleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AvatarMediaFetchMultiple not implemented")
+}
+func (UnimplementedMediaServiceServer) AvatarMediaDelete(context.Context, *AvatarMediaDeleteRequest) (*AvatarMediaDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AvatarMediaDelete not implemented")
 }
 func (UnimplementedMediaServiceServer) mustEmbedUnimplementedMediaServiceServer() {}
 
@@ -224,6 +284,78 @@ func _MediaService_PostsFetchMedia_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MediaService_AvatarMediaUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AvatarMediaUploadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).AvatarMediaUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_AvatarMediaUpload_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).AvatarMediaUpload(ctx, req.(*AvatarMediaUploadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MediaService_AvatarMediaFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AvatarMediaFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).AvatarMediaFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_AvatarMediaFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).AvatarMediaFetch(ctx, req.(*AvatarMediaFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MediaService_AvatarMediaFetchMultiple_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AvatarMediaFetchMultipleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).AvatarMediaFetchMultiple(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_AvatarMediaFetchMultiple_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).AvatarMediaFetchMultiple(ctx, req.(*AvatarMediaFetchMultipleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MediaService_AvatarMediaDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AvatarMediaDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).AvatarMediaDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_AvatarMediaDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).AvatarMediaDelete(ctx, req.(*AvatarMediaDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MediaService_ServiceDesc is the grpc.ServiceDesc for MediaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +382,22 @@ var MediaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostsFetchMedia",
 			Handler:    _MediaService_PostsFetchMedia_Handler,
+		},
+		{
+			MethodName: "AvatarMediaUpload",
+			Handler:    _MediaService_AvatarMediaUpload_Handler,
+		},
+		{
+			MethodName: "AvatarMediaFetch",
+			Handler:    _MediaService_AvatarMediaFetch_Handler,
+		},
+		{
+			MethodName: "AvatarMediaFetchMultiple",
+			Handler:    _MediaService_AvatarMediaFetchMultiple_Handler,
+		},
+		{
+			MethodName: "AvatarMediaDelete",
+			Handler:    _MediaService_AvatarMediaDelete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -9,6 +9,11 @@ service MediaService {
   rpc PostFetchMedia (PostFetchMediaRequest) returns (PostFetchMediaResponse);
   rpc PostDeleteMedia (PostDeleteMediaRequest) returns (PostDeleteMediaResponse);
   rpc PostsFetchMedia (PostsFetchMediaRequest) returns (PostsFetchMediaResponse);
+
+  rpc AvatarMediaUpload (AvatarMediaUploadRequest) returns (AvatarMediaUploadResponse);
+  rpc AvatarMediaFetch (AvatarMediaFetchRequest) returns (AvatarMediaFetchResponse);
+  rpc AvatarMediaFetchMultiple (AvatarMediaFetchMultipleRequest) returns (AvatarMediaFetchMultipleResponse);
+  rpc AvatarMediaDelete (AvatarMediaDeleteRequest) returns (AvatarMediaDeleteResponse);
 }
 
 // PING
@@ -76,3 +81,42 @@ message Media {
   string coverFilename = 8;
   string metadata = 9;
 }
+
+//--------------------------------------
+// AVATAR MEDIA
+
+message AVATAR {
+  string userId = 1;
+  string createdAt = 2;
+  string filename = 3;
+  string metadata = 4;
+}
+
+message AvatarMediaUploadRequest {
+  string userId = 1;
+  string mimeType = 2;
+  string fileName = 3;
+  bytes fileBody = 4;
+}
+message AvatarMediaUploadResponse {
+  AVATAR avatar = 1;
+}
+
+message AvatarMediaFetchRequest {
+  string userId = 1;
+}
+message AvatarMediaFetchResponse {
+  AVATAR avatar = 1;
+}
+
+message AvatarMediaFetchMultipleRequest {
+  repeated string userIds = 1;
+}
+message AvatarMediaFetchMultipleResponse {
+  repeated AVATAR avatars = 1;
+}
+
+message AvatarMediaDeleteRequest {
+  string userId = 1;
+}
+message AvatarMediaDeleteResponse {}
