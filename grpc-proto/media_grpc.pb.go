@@ -104,8 +104,9 @@ func (c *mediaServiceClient) PostsFetchMedia(ctx context.Context, in *PostsFetch
 }
 
 func (c *mediaServiceClient) AvatarMediaUpload(ctx context.Context, in *AvatarMediaUploadRequest, opts ...grpc.CallOption) (*AvatarMediaUploadResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AvatarMediaUploadResponse)
-	err := c.cc.Invoke(ctx, MediaService_AvatarMediaUpload_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaUpload_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -113,8 +114,9 @@ func (c *mediaServiceClient) AvatarMediaUpload(ctx context.Context, in *AvatarMe
 }
 
 func (c *mediaServiceClient) AvatarMediaFetch(ctx context.Context, in *AvatarMediaFetchRequest, opts ...grpc.CallOption) (*AvatarMediaFetchResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AvatarMediaFetchResponse)
-	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetch_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetch_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +124,9 @@ func (c *mediaServiceClient) AvatarMediaFetch(ctx context.Context, in *AvatarMed
 }
 
 func (c *mediaServiceClient) AvatarMediaFetchMultiple(ctx context.Context, in *AvatarMediaFetchMultipleRequest, opts ...grpc.CallOption) (*AvatarMediaFetchMultipleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AvatarMediaFetchMultipleResponse)
-	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetchMultiple_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaFetchMultiple_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,8 +134,9 @@ func (c *mediaServiceClient) AvatarMediaFetchMultiple(ctx context.Context, in *A
 }
 
 func (c *mediaServiceClient) AvatarMediaDelete(ctx context.Context, in *AvatarMediaDeleteRequest, opts ...grpc.CallOption) (*AvatarMediaDeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AvatarMediaDeleteResponse)
-	err := c.cc.Invoke(ctx, MediaService_AvatarMediaDelete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, MediaService_AvatarMediaDelete_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}

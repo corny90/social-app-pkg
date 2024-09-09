@@ -189,7 +189,7 @@ message FollowingsFetchRequest {
   bytes page_state = 2;
 }
 message FollowingsFetchResponse {
-  repeated Follow followings = 1;
+  repeated FollowsRender followings = 1;
   bytes page_state = 2;
 }
 
@@ -199,7 +199,7 @@ message FollowersFetchRequest {
   bytes page_state = 2;
 }
 message FollowersFetchResponse {
-  repeated Follow followers = 1;
+  repeated FollowsRender followers = 1;
   bytes page_state = 2;
 }
 
