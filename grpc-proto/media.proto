@@ -89,7 +89,7 @@ message AVATAR {
   string userId = 1;
   string createdAt = 2;
   string filename = 3;
-  string metadata = 4;
+  //string metadata = 4;
 }
 
 message AvatarMediaUploadRequest {

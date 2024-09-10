@@ -23,6 +23,7 @@ type Post struct {
 	IsLiked       bool           `json:"isLiked"`
 	IsVirtual     bool           `json:"isVirtual"`
 	Username      string         `json:"username"`
+	AvatarUrl     string         `json:"avatarUrl"`
 }
 
 type PostCounter struct {
@@ -82,12 +83,12 @@ type MediaFile struct {
 
 // Response for frontend
 type FollowsRender struct {
-	UserID    gocql.UUID `json:"user_id"`
-	UserType  string     `json:"user_type"` // r or v
-	UserRole  string     `json:"user_role"` // advertise or business
+	UserID    gocql.UUID `json:"userId"`
+	UserType  string     `json:"userType"` // r or v
+	UserRole  string     `json:"userRole"` // advertise or business
 	Username  string     `json:"username"`
-	AvatarUrl string     `json:"avatar_url"`
-	CreatedAt time.Time  `json:"created_at"` // the date of follow creation
+	AvatarUrl string     `json:"avatarUrl"`
+	CreatedAt time.Time  `json:"createdAt"` // the date of follow creation
 	Status    string     `json:"status"`
 }
 
