@@ -56,9 +56,9 @@ type LogEvent struct {
 }
 
 func Event(logType, msg string, args ...interface{}) LogEvent {
-	if environment.EnvName == "PRODUCTION" && logType == "DEBUG" {
-		return LogEvent{}
-	}
+	//if environment.EnvName == "PRODUCTION" && logType == "DEBUG" {
+	//	return LogEvent{}
+	//}
 
 	logEvent := LogEvent{
 		LogType:           GetLogTypeLabel(logType),
