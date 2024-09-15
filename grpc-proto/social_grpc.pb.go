@@ -248,7 +248,7 @@ type SocialServiceServer interface {
 	mustEmbedUnimplementedSocialServiceServer()
 }
 
-// UnimplementedSocialServiprotoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative *.protoceServer must be embedded to have forward compatible implementations.
+// UnimplementedSocialServiceServer must be embedded to have forward compatible implementations.
 type UnimplementedSocialServiceServer struct {
 }
 
