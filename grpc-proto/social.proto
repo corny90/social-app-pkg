@@ -84,6 +84,7 @@ message PostsFetchByKeywordRequest {
   string user_id = 1;
   string keyword = 2;
   bool is_virtual = 3;
+  bytes pages_state = 4;
 }
 message PostsFetchByKeywordResponse {
   repeated Post posts = 1;
