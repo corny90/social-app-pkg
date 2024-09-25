@@ -78,9 +78,9 @@ func GetDomainDependingEnv() (string, error) {
 	} else if StartEnvironment == "local" {
 		domain = ".dating.local"
 	} else if StartEnvironment == "staging" {
-		domain = "staging.senti.live"
+		domain = ".staging.senti.live"
 	} else if StartEnvironment == "production" {
-		domain = "senti.live"
+		domain = ".senti.live"
 	} else {
 		return "", errors.New("a problem occurred while setting the domain based on environment variable")
 	}
