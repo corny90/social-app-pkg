@@ -3,9 +3,10 @@ package pkg_environment
 import (
 	"errors"
 	"fmt"
-	"github.com/joho/godotenv"
 	"os"
 	"path/filepath"
+
+	"github.com/joho/godotenv"
 )
 
 var EnvName string
@@ -78,7 +79,7 @@ func GetDomainDependingEnv() (string, error) {
 	} else if StartEnvironment == "local" {
 		domain = ".dating.local"
 	} else if StartEnvironment == "staging" {
-		domain = ".staging.senti.live"
+		domain = ".senti.live"
 	} else if StartEnvironment == "production" {
 		domain = ".senti.live"
 	} else {
