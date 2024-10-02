@@ -69,6 +69,7 @@ func SetEnv() (string, error) {
 	return EnvName, nil
 }
 
+// depricated
 func GetDomainDependingEnv() (string, error) {
 
 	var domain string
