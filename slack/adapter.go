@@ -3,6 +3,7 @@ package slack
 import (
 	"fmt"
 	"github.com/corny90/social-app-pkg/core-domain/message"
+	environment "github.com/corny90/social-app-pkg/environment"
 	logger "github.com/corny90/social-app-pkg/logger"
 	"github.com/slack-go/slack"
 )
@@ -29,6 +30,12 @@ func (adapter *Adapter) LogRequest(logInfo logger.LogRequest) {
 }
 
 func (adapter *Adapter) LogEvent(logObj logger.LogEvent) {
+
+	// RETURN IF THE LOG TYPE IS DEBUG AND THE ENVIRONMENT IS PRODUCTION
+	if environment.EnvName == "PRODUCTION" && logObj.LogType == "DEBUG" {
+		return
+	}
+
 	go func() {
 		// CONSTRUCT THE FORMATTED MESSAGE TEXT WITH EMOJIS
 		messageText := fmt.Sprintf("%v `%v` ⏰ `%v` 📝 `%v`",
@@ -79,6 +86,12 @@ func (adapter *Adapter) LogChatMessage(message message.Message, agentPersonality
 }
 
 func (adapter *Adapter) LogHttp(logInfo logger.LogRequest) {
+
+	// RETURN IF THE LOG TYPE IS DEBUG AND THE ENVIRONMENT IS PRODUCTION
+	if environment.EnvName == "PRODUCTION" && logInfo.LogStatusCode != 200 {
+		return
+	}
+
 	go func() {
 		// CONSTRUCT THE FORMATTED MESSAGE TEXT WITH EMOJIS
 		messageText := fmt.Sprintf("%v `%v` ⏰ `%v` ⌛ `%v` 🀄️`%v · %v` 📍 `%v`",
