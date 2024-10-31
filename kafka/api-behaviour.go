@@ -43,6 +43,11 @@ type EventRequest struct {
 	Data   json.RawMessage `json:"data"`
 }
 
+type SignupEventData struct {
+	SignupActionID int    `json:"signupActionId"`
+	SignupSource   string `json:"signupSource"`
+}
+
 type TrackerPayloadResponse struct {
 	UserID string `json:"userId"`
 	PostID string `json:"postId"`
