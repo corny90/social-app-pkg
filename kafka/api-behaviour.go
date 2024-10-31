@@ -38,9 +38,9 @@ type Clicks struct {
 }
 
 type EventRequest struct {
-	Name    string          `json:"event"`
-	UserID  string          `json:"userId"`
-	Payload json.RawMessage `json:"payload"`
+	Name   string          `json:"event"`
+	UserID string          `json:"userId"`
+	Data   json.RawMessage `json:"data"`
 }
 
 type TrackerPayloadResponse struct {
