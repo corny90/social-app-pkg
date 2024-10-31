@@ -37,6 +37,11 @@ type Clicks struct {
 	Comments bool `json:"comments"`
 }
 
+type EventTrackerRequest struct {
+	Name    string          `json:"name"`
+	Payload json.RawMessage `json:"payload"`
+}
+
 type TrackerPayloadResponse struct {
 	UserID string `json:"userId"`
 	PostID string `json:"postId"`
