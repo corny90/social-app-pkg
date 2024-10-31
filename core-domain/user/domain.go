@@ -102,9 +102,11 @@ type Account struct {
 
 // Register struct -----------------------------------------------------------------------------------------------------
 type Register struct {
-	Username string `json:"username" validate:"required,min=4,max=20"`
-	Email    string `json:"email" validate:"required,email"`
-	Password string `json:"password" validate:"required,min=4,max=20"`
+	Username       string `json:"username" validate:"required,min=4,max=20"`
+	Email          string `json:"email" validate:"required,email"`
+	Password       string `json:"password" validate:"required,min=4,max=20"`
+	SignupActionID *int   `json:"signup_action_id,omitempty"`
+	SignupSource   string `json:"signup_source,omitempty"`
 }
 
 // Login struct --------------------------------------------------------------------------------------------------------
