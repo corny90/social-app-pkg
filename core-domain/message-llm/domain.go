@@ -67,7 +67,7 @@ type LLMParticipantProfile struct {
 type LLMParticipantInfo struct {
 	UserID             gocql.UUID `json:"user_id"`
 	UserType           string     `json:"user_type"`
-	GivenName          string     `json:"user_name"`
+	GivenName          string     `json:"given_name"`
 	Location           string     `json:"location"`
 	Profession         string     `json:"profession"`
 	Personality        string     `json:"personality"`
