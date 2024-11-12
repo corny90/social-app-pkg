@@ -39,15 +39,16 @@ type Users struct {
 }
 
 type UserBase struct {
-	UserID         gocql.UUID `json:"user_id"`
-	Username       string     `json:"username"`
-	Email          string     `json:"email"`
-	Password       string     `json:"password"`
-	CreatedAt      time.Time  `json:"created_at"`
-	EditedAt       time.Time  `json:"edited_at"`
-	AccountType    string     `json:"account_type"`
-	SignupActionID int        `json:"signup_action_id"`
-	SignupSource   string     `json:"signup_source"`
+	UserID           gocql.UUID `json:"user_id"`
+	Username         string     `json:"username"`
+	Email            string     `json:"email"`
+	Password         string     `json:"password"`
+	CreatedAt        time.Time  `json:"created_at"`
+	EditedAt         time.Time  `json:"edited_at"`
+	AccountType      string     `json:"account_type"`
+	SignupActionID   int        `json:"signup_action_id"`
+	SignupSource     string     `json:"signup_source"`
+	InitialContentID gocql.UUID `json:"initial_content_id"`
 }
 type UsersBase struct {
 	Users []UserBase `json:"users"`
