@@ -46,7 +46,7 @@ type EventRequest struct {
 type SignupEventData struct {
 	SignupActionID   int    `json:"signupActionId"`
 	SignupSource     string `json:"signupSource"`
-	InitialContentID string `json:"initalContentId"`
+	InitialContentID string `json:"initialContentId"`
 }
 
 type TrackerPayloadResponse struct {
