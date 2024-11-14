@@ -20,10 +20,22 @@ type LLMRequest struct {
 }
 
 type LLMResponse struct {
-	BotResponse         string   `json:"response"`
-	EngagementRate      int      `json:"engagement_rate"`
-	BlockRecommendation bool     `json:"block_recommendation"`
-	AgentPersonality    []string `json:"agent_personality"`
+	BotResponse            string   `json:"response"`
+	AgentPersonality       []string `json:"agent_personality"`
+	Summary                string   `json:"summary"`
+	AgentIntroducedHerself bool     `json:"agent_introduced_herself"`
+	GivenNames             struct {
+		Agent struct {
+			UserID    string `json:"user_id"`
+			GivenName string `json:"given_name"`
+		} `json:"agent"`
+		User struct {
+			UserID    string `json:"user_id"`
+			GivenName string `json:"given_name"`
+		} `json:"user"`
+	} `json:"given_names"`
+	EngagementRate      int  `json:"engagement_rate"`
+	BlockRecommendation bool `json:"block_recommendation"`
 }
 
 type LLMConversationSummary struct {
