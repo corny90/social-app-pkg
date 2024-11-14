@@ -33,6 +33,7 @@ message PostUploadMediaRequest {
   string originalFilename = 6;
   string sizeCategory = 7;
   bytes photo = 8;
+  string videoUrl = 9;
 }
 
 message PostUploadMediaResponse {
