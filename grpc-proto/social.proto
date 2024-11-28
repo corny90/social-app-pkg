@@ -14,6 +14,7 @@ service SocialService {
   rpc PostsFetchByUserID(PostsFetchByUserIDRequest) returns (PostsFetchByUserIDResponse);
   rpc PostDelete(PostDeleteRequest) returns (PostDeleteResponse);
   rpc PostsFetchVirtualLatest(PostsFetchVirtualLatestRequest) returns (PostsFetchVirtualLatestResponse);
+  rpc PostsFetchVirtualByKeywordsLatest(PostsFetchVirtualByKeywordsLatestRequest) returns (PostsFetchVirtualByKeywordsLatestResponse);
   rpc PostsFetchByKeyword(PostsFetchByKeywordRequest) returns (PostsFetchByKeywordResponse);
   rpc PostsFetchByKeywords(PostsFetchByKeywordsRequest) returns (PostsFetchByKeywordsResponse);
   rpc PostsFetchAllKeywords(PostsFetchAllKeywordsRequest) returns (PostsFetchAllKeywordsResponse);
@@ -77,6 +78,18 @@ message PostsFetchVirtualLatestRequest {
 message PostsFetchVirtualLatestResponse {
   repeated Post posts = 1;
   map<string, bytes> pages_states = 2;
+}
+
+// POSTS FETCH VIRTUAL BY KEYWORDS LATEST
+message PostsFetchVirtualByKeywordsLatestRequest {
+  string user_id = 1;
+  repeated string keywords = 2;
+  bytes pages_state = 3;
+} 
+
+message PostsFetchVirtualByKeywordsLatestResponse {
+  repeated Post posts = 1;
+  bytes page_state = 2;
 }
 
 // POSTS FETCH BY KEYWORD

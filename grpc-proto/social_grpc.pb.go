@@ -19,25 +19,26 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	SocialService_PingApiSocial_FullMethodName           = "/social.SocialService/PingApiSocial"
-	SocialService_PostCreate_FullMethodName              = "/social.SocialService/PostCreate"
-	SocialService_PostsFetchByUserID_FullMethodName      = "/social.SocialService/PostsFetchByUserID"
-	SocialService_PostDelete_FullMethodName              = "/social.SocialService/PostDelete"
-	SocialService_PostsFetchVirtualLatest_FullMethodName = "/social.SocialService/PostsFetchVirtualLatest"
-	SocialService_PostsFetchByKeyword_FullMethodName     = "/social.SocialService/PostsFetchByKeyword"
-	SocialService_PostsFetchByKeywords_FullMethodName    = "/social.SocialService/PostsFetchByKeywords"
-	SocialService_PostsFetchAllKeywords_FullMethodName   = "/social.SocialService/PostsFetchAllKeywords"
-	SocialService_PostToggleLike_FullMethodName          = "/social.SocialService/PostToggleLike"
-	SocialService_PostFetchLikes_FullMethodName          = "/social.SocialService/PostFetchLikes"
-	SocialService_PostFetchViews_FullMethodName          = "/social.SocialService/PostFetchViews"
-	SocialService_PostCommentCreate_FullMethodName       = "/social.SocialService/PostCommentCreate"
-	SocialService_PostCommentsFetch_FullMethodName       = "/social.SocialService/PostCommentsFetch"
-	SocialService_PostCommentDelete_FullMethodName       = "/social.SocialService/PostCommentDelete"
-	SocialService_FollowCreate_FullMethodName            = "/social.SocialService/FollowCreate"
-	SocialService_FollowDelete_FullMethodName            = "/social.SocialService/FollowDelete"
-	SocialService_FollowingsFetch_FullMethodName         = "/social.SocialService/FollowingsFetch"
-	SocialService_FollowersFetch_FullMethodName          = "/social.SocialService/FollowersFetch"
-	SocialService_FollowsCounterFetch_FullMethodName     = "/social.SocialService/FollowsCounterFetch"
+	SocialService_PingApiSocial_FullMethodName                     = "/social.SocialService/PingApiSocial"
+	SocialService_PostCreate_FullMethodName                        = "/social.SocialService/PostCreate"
+	SocialService_PostsFetchByUserID_FullMethodName                = "/social.SocialService/PostsFetchByUserID"
+	SocialService_PostDelete_FullMethodName                        = "/social.SocialService/PostDelete"
+	SocialService_PostsFetchVirtualLatest_FullMethodName           = "/social.SocialService/PostsFetchVirtualLatest"
+	SocialService_PostsFetchVirtualByKeywordsLatest_FullMethodName = "/social.SocialService/PostsFetchVirtualByKeywordsLatest"
+	SocialService_PostsFetchByKeyword_FullMethodName               = "/social.SocialService/PostsFetchByKeyword"
+	SocialService_PostsFetchByKeywords_FullMethodName              = "/social.SocialService/PostsFetchByKeywords"
+	SocialService_PostsFetchAllKeywords_FullMethodName             = "/social.SocialService/PostsFetchAllKeywords"
+	SocialService_PostToggleLike_FullMethodName                    = "/social.SocialService/PostToggleLike"
+	SocialService_PostFetchLikes_FullMethodName                    = "/social.SocialService/PostFetchLikes"
+	SocialService_PostFetchViews_FullMethodName                    = "/social.SocialService/PostFetchViews"
+	SocialService_PostCommentCreate_FullMethodName                 = "/social.SocialService/PostCommentCreate"
+	SocialService_PostCommentsFetch_FullMethodName                 = "/social.SocialService/PostCommentsFetch"
+	SocialService_PostCommentDelete_FullMethodName                 = "/social.SocialService/PostCommentDelete"
+	SocialService_FollowCreate_FullMethodName                      = "/social.SocialService/FollowCreate"
+	SocialService_FollowDelete_FullMethodName                      = "/social.SocialService/FollowDelete"
+	SocialService_FollowingsFetch_FullMethodName                   = "/social.SocialService/FollowingsFetch"
+	SocialService_FollowersFetch_FullMethodName                    = "/social.SocialService/FollowersFetch"
+	SocialService_FollowsCounterFetch_FullMethodName               = "/social.SocialService/FollowsCounterFetch"
 )
 
 // SocialServiceClient is the client API for SocialService service.
@@ -49,6 +50,7 @@ type SocialServiceClient interface {
 	PostsFetchByUserID(ctx context.Context, in *PostsFetchByUserIDRequest, opts ...grpc.CallOption) (*PostsFetchByUserIDResponse, error)
 	PostDelete(ctx context.Context, in *PostDeleteRequest, opts ...grpc.CallOption) (*PostDeleteResponse, error)
 	PostsFetchVirtualLatest(ctx context.Context, in *PostsFetchVirtualLatestRequest, opts ...grpc.CallOption) (*PostsFetchVirtualLatestResponse, error)
+	PostsFetchVirtualByKeywordsLatest(ctx context.Context, in *PostsFetchVirtualByKeywordsLatestRequest, opts ...grpc.CallOption) (*PostsFetchVirtualByKeywordsLatestResponse, error)
 	PostsFetchByKeyword(ctx context.Context, in *PostsFetchByKeywordRequest, opts ...grpc.CallOption) (*PostsFetchByKeywordResponse, error)
 	PostsFetchByKeywords(ctx context.Context, in *PostsFetchByKeywordsRequest, opts ...grpc.CallOption) (*PostsFetchByKeywordsResponse, error)
 	PostsFetchAllKeywords(ctx context.Context, in *PostsFetchAllKeywordsRequest, opts ...grpc.CallOption) (*PostsFetchAllKeywordsResponse, error)
@@ -117,6 +119,16 @@ func (c *socialServiceClient) PostsFetchVirtualLatest(ctx context.Context, in *P
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PostsFetchVirtualLatestResponse)
 	err := c.cc.Invoke(ctx, SocialService_PostsFetchVirtualLatest_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) PostsFetchVirtualByKeywordsLatest(ctx context.Context, in *PostsFetchVirtualByKeywordsLatestRequest, opts ...grpc.CallOption) (*PostsFetchVirtualByKeywordsLatestResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PostsFetchVirtualByKeywordsLatestResponse)
+	err := c.cc.Invoke(ctx, SocialService_PostsFetchVirtualByKeywordsLatest_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -272,6 +284,7 @@ type SocialServiceServer interface {
 	PostsFetchByUserID(context.Context, *PostsFetchByUserIDRequest) (*PostsFetchByUserIDResponse, error)
 	PostDelete(context.Context, *PostDeleteRequest) (*PostDeleteResponse, error)
 	PostsFetchVirtualLatest(context.Context, *PostsFetchVirtualLatestRequest) (*PostsFetchVirtualLatestResponse, error)
+	PostsFetchVirtualByKeywordsLatest(context.Context, *PostsFetchVirtualByKeywordsLatestRequest) (*PostsFetchVirtualByKeywordsLatestResponse, error)
 	PostsFetchByKeyword(context.Context, *PostsFetchByKeywordRequest) (*PostsFetchByKeywordResponse, error)
 	PostsFetchByKeywords(context.Context, *PostsFetchByKeywordsRequest) (*PostsFetchByKeywordsResponse, error)
 	PostsFetchAllKeywords(context.Context, *PostsFetchAllKeywordsRequest) (*PostsFetchAllKeywordsResponse, error)
@@ -310,6 +323,9 @@ func (UnimplementedSocialServiceServer) PostDelete(context.Context, *PostDeleteR
 }
 func (UnimplementedSocialServiceServer) PostsFetchVirtualLatest(context.Context, *PostsFetchVirtualLatestRequest) (*PostsFetchVirtualLatestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostsFetchVirtualLatest not implemented")
+}
+func (UnimplementedSocialServiceServer) PostsFetchVirtualByKeywordsLatest(context.Context, *PostsFetchVirtualByKeywordsLatestRequest) (*PostsFetchVirtualByKeywordsLatestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostsFetchVirtualByKeywordsLatest not implemented")
 }
 func (UnimplementedSocialServiceServer) PostsFetchByKeyword(context.Context, *PostsFetchByKeywordRequest) (*PostsFetchByKeywordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostsFetchByKeyword not implemented")
@@ -460,6 +476,24 @@ func _SocialService_PostsFetchVirtualLatest_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SocialServiceServer).PostsFetchVirtualLatest(ctx, req.(*PostsFetchVirtualLatestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_PostsFetchVirtualByKeywordsLatest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostsFetchVirtualByKeywordsLatestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).PostsFetchVirtualByKeywordsLatest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_PostsFetchVirtualByKeywordsLatest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).PostsFetchVirtualByKeywordsLatest(ctx, req.(*PostsFetchVirtualByKeywordsLatestRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -742,6 +776,10 @@ var SocialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostsFetchVirtualLatest",
 			Handler:    _SocialService_PostsFetchVirtualLatest_Handler,
+		},
+		{
+			MethodName: "PostsFetchVirtualByKeywordsLatest",
+			Handler:    _SocialService_PostsFetchVirtualByKeywordsLatest_Handler,
 		},
 		{
 			MethodName: "PostsFetchByKeyword",
