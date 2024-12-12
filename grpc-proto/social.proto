@@ -83,8 +83,11 @@ message PostsFetchVirtualLatestResponse {
 // POSTS FETCH VIRTUAL BY KEYWORDS LATEST
 message PostsFetchVirtualByKeywordsLatestRequest {
   string user_id = 1;
-  repeated string keywords = 2;
-  bytes pages_state = 3;
+  repeated string preferred_keywords = 2;
+  repeated string recommended_keywords = 3;
+  repeated string trending_keywords = 4;
+  repeated string randome_keywords = 5;
+  bytes pages_state = 6;
 } 
 
 message PostsFetchVirtualByKeywordsLatestResponse {
