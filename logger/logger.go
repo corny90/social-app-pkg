@@ -2,9 +2,10 @@ package pkg_logger
 
 import (
 	"fmt"
-	environment "github.com/corny90/social-app-pkg/environment"
 	"os"
 	"time"
+
+	environment "github.com/corny90/social-app-pkg/environment"
 )
 
 // ANSI COLOR CODES
@@ -53,6 +54,27 @@ type LogEvent struct {
 	LogEnvironment    string
 	LogStartTimestamp string
 	LogMessage        string
+}
+
+func Fatal(msg string, args ...interface{}) {
+	Event("FATAL", msg, args...)
+	os.Exit(1)
+}
+
+func Error(msg string, args ...interface{}) LogEvent {
+	return Event("ERROR", msg, args...)
+}
+
+func Warn(msg string, args ...interface{}) LogEvent {
+	return Event("WARN", msg, args...)
+}
+
+func Info(msg string, args ...interface{}) LogEvent {
+	return Event("INFO", msg, args...)
+}
+
+func Debug(msg string, args ...interface{}) LogEvent {
+	return Event("DEBUG", msg, args...)
 }
 
 func Event(logType, msg string, args ...interface{}) LogEvent {
