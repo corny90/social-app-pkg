@@ -57,7 +57,9 @@ type UsersBase struct {
 type UserInfo struct {
 	UserID            gocql.UUID   `json:"user_id"`
 	GivenName         string       `json:"given_name"`
+	Bio               string       `json:"bio"`
 	AvatarUrl         string       `json:"avatar_url"`
+	BackgroundUrl     string       `json:"background_url"`
 	About             AboutInfo    `json:"about"`
 	Social            SocialInfo   `json:"social"`
 	Physical          PhysicalInfo `json:"physical"`
