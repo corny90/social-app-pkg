@@ -14,6 +14,11 @@ service MediaService {
   rpc AvatarMediaFetch (AvatarMediaFetchRequest) returns (AvatarMediaFetchResponse);
   rpc AvatarMediaFetchMultiple (AvatarMediaFetchMultipleRequest) returns (AvatarMediaFetchMultipleResponse);
   rpc AvatarMediaDelete (AvatarMediaDeleteRequest) returns (AvatarMediaDeleteResponse);
+
+
+  rpc BackgroundMediaUpload (BackgroundMediaUploadRequest) returns (BackgroundMediaUploadResponse);
+  rpc BackgroundMediaFetch (BackgroundMediaFetchRequest) returns (BackgroundMediaFetchResponse);
+  rpc BackgroundMediaDelete (BackgroundMediaDeleteRequest) returns (BackgroundMediaDeleteResponse);  
 }
 
 // PING
@@ -121,3 +126,35 @@ message AvatarMediaDeleteRequest {
   string userId = 1;
 }
 message AvatarMediaDeleteResponse {}
+
+
+//--------------------------------------
+// BACKGROUND MEDIA
+
+message BACKGROUND {
+  string userId = 1;
+  string createdAt = 2;
+  string filename = 3;
+}
+
+message BackgroundMediaUploadRequest {
+  string userId = 1;
+  string mimeType = 2;
+  string fileName = 3;
+  bytes fileBody = 4;
+}
+message BackgroundMediaUploadResponse {
+  BACKGROUND background = 1;
+}
+
+message BackgroundMediaFetchRequest {
+  string userId = 1;
+}
+message BackgroundMediaFetchResponse {
+  BACKGROUND background = 1;
+}
+
+message BackgroundMediaDeleteRequest {
+  string userId = 1;
+}
+message BackgroundMediaDeleteResponse {}

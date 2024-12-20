@@ -28,6 +28,9 @@ const (
 	MediaService_AvatarMediaFetch_FullMethodName         = "/media.MediaService/AvatarMediaFetch"
 	MediaService_AvatarMediaFetchMultiple_FullMethodName = "/media.MediaService/AvatarMediaFetchMultiple"
 	MediaService_AvatarMediaDelete_FullMethodName        = "/media.MediaService/AvatarMediaDelete"
+	MediaService_BackgroundMediaUpload_FullMethodName    = "/media.MediaService/BackgroundMediaUpload"
+	MediaService_BackgroundMediaFetch_FullMethodName     = "/media.MediaService/BackgroundMediaFetch"
+	MediaService_BackgroundMediaDelete_FullMethodName    = "/media.MediaService/BackgroundMediaDelete"
 )
 
 // MediaServiceClient is the client API for MediaService service.
@@ -43,6 +46,9 @@ type MediaServiceClient interface {
 	AvatarMediaFetch(ctx context.Context, in *AvatarMediaFetchRequest, opts ...grpc.CallOption) (*AvatarMediaFetchResponse, error)
 	AvatarMediaFetchMultiple(ctx context.Context, in *AvatarMediaFetchMultipleRequest, opts ...grpc.CallOption) (*AvatarMediaFetchMultipleResponse, error)
 	AvatarMediaDelete(ctx context.Context, in *AvatarMediaDeleteRequest, opts ...grpc.CallOption) (*AvatarMediaDeleteResponse, error)
+	BackgroundMediaUpload(ctx context.Context, in *BackgroundMediaUploadRequest, opts ...grpc.CallOption) (*BackgroundMediaUploadResponse, error)
+	BackgroundMediaFetch(ctx context.Context, in *BackgroundMediaFetchRequest, opts ...grpc.CallOption) (*BackgroundMediaFetchResponse, error)
+	BackgroundMediaDelete(ctx context.Context, in *BackgroundMediaDeleteRequest, opts ...grpc.CallOption) (*BackgroundMediaDeleteResponse, error)
 }
 
 type mediaServiceClient struct {
@@ -143,6 +149,36 @@ func (c *mediaServiceClient) AvatarMediaDelete(ctx context.Context, in *AvatarMe
 	return out, nil
 }
 
+func (c *mediaServiceClient) BackgroundMediaUpload(ctx context.Context, in *BackgroundMediaUploadRequest, opts ...grpc.CallOption) (*BackgroundMediaUploadResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BackgroundMediaUploadResponse)
+	err := c.cc.Invoke(ctx, MediaService_BackgroundMediaUpload_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mediaServiceClient) BackgroundMediaFetch(ctx context.Context, in *BackgroundMediaFetchRequest, opts ...grpc.CallOption) (*BackgroundMediaFetchResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BackgroundMediaFetchResponse)
+	err := c.cc.Invoke(ctx, MediaService_BackgroundMediaFetch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mediaServiceClient) BackgroundMediaDelete(ctx context.Context, in *BackgroundMediaDeleteRequest, opts ...grpc.CallOption) (*BackgroundMediaDeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BackgroundMediaDeleteResponse)
+	err := c.cc.Invoke(ctx, MediaService_BackgroundMediaDelete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MediaServiceServer is the server API for MediaService service.
 // All implementations must embed UnimplementedMediaServiceServer
 // for forward compatibility.
@@ -156,6 +192,9 @@ type MediaServiceServer interface {
 	AvatarMediaFetch(context.Context, *AvatarMediaFetchRequest) (*AvatarMediaFetchResponse, error)
 	AvatarMediaFetchMultiple(context.Context, *AvatarMediaFetchMultipleRequest) (*AvatarMediaFetchMultipleResponse, error)
 	AvatarMediaDelete(context.Context, *AvatarMediaDeleteRequest) (*AvatarMediaDeleteResponse, error)
+	BackgroundMediaUpload(context.Context, *BackgroundMediaUploadRequest) (*BackgroundMediaUploadResponse, error)
+	BackgroundMediaFetch(context.Context, *BackgroundMediaFetchRequest) (*BackgroundMediaFetchResponse, error)
+	BackgroundMediaDelete(context.Context, *BackgroundMediaDeleteRequest) (*BackgroundMediaDeleteResponse, error)
 	mustEmbedUnimplementedMediaServiceServer()
 }
 
@@ -192,6 +231,15 @@ func (UnimplementedMediaServiceServer) AvatarMediaFetchMultiple(context.Context,
 }
 func (UnimplementedMediaServiceServer) AvatarMediaDelete(context.Context, *AvatarMediaDeleteRequest) (*AvatarMediaDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AvatarMediaDelete not implemented")
+}
+func (UnimplementedMediaServiceServer) BackgroundMediaUpload(context.Context, *BackgroundMediaUploadRequest) (*BackgroundMediaUploadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BackgroundMediaUpload not implemented")
+}
+func (UnimplementedMediaServiceServer) BackgroundMediaFetch(context.Context, *BackgroundMediaFetchRequest) (*BackgroundMediaFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BackgroundMediaFetch not implemented")
+}
+func (UnimplementedMediaServiceServer) BackgroundMediaDelete(context.Context, *BackgroundMediaDeleteRequest) (*BackgroundMediaDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BackgroundMediaDelete not implemented")
 }
 func (UnimplementedMediaServiceServer) mustEmbedUnimplementedMediaServiceServer() {}
 func (UnimplementedMediaServiceServer) testEmbeddedByValue()                      {}
@@ -376,6 +424,60 @@ func _MediaService_AvatarMediaDelete_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MediaService_BackgroundMediaUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BackgroundMediaUploadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).BackgroundMediaUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_BackgroundMediaUpload_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).BackgroundMediaUpload(ctx, req.(*BackgroundMediaUploadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MediaService_BackgroundMediaFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BackgroundMediaFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).BackgroundMediaFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_BackgroundMediaFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).BackgroundMediaFetch(ctx, req.(*BackgroundMediaFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MediaService_BackgroundMediaDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BackgroundMediaDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).BackgroundMediaDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_BackgroundMediaDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).BackgroundMediaDelete(ctx, req.(*BackgroundMediaDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MediaService_ServiceDesc is the grpc.ServiceDesc for MediaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +520,18 @@ var MediaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AvatarMediaDelete",
 			Handler:    _MediaService_AvatarMediaDelete_Handler,
+		},
+		{
+			MethodName: "BackgroundMediaUpload",
+			Handler:    _MediaService_BackgroundMediaUpload_Handler,
+		},
+		{
+			MethodName: "BackgroundMediaFetch",
+			Handler:    _MediaService_BackgroundMediaFetch_Handler,
+		},
+		{
+			MethodName: "BackgroundMediaDelete",
+			Handler:    _MediaService_BackgroundMediaDelete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

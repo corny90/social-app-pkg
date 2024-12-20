@@ -24,3 +24,9 @@ type AvatarMedia struct {
 	Filename  string
 	// Metadata  string
 }
+
+type BackgroundMedia struct {
+	UserID    gocql.UUID
+	CreatedAt time.Time
+	Filename  string
+}
