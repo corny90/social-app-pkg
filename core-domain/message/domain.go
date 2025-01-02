@@ -57,6 +57,7 @@ type ConversationRender struct {
 	EditedAt       time.Time     `json:"edited_at"`
 	Metadata       string        `json:"metadata"`
 	State          string        `json:"state"`
+	TotalUnread    int           `json:"total_unread"`
 }
 type Participant struct {
 	UserID    gocql.UUID `json:"user_id"`
