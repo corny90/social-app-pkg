@@ -1368,6 +1368,7 @@ type ConversationRender struct {
 	EditedAt       string         `protobuf:"bytes,4,opt,name=editedAt,proto3" json:"editedAt,omitempty"`
 	Metadata       string         `protobuf:"bytes,5,opt,name=metadata,proto3" json:"metadata,omitempty"`
 	State          string         `protobuf:"bytes,6,opt,name=state,proto3" json:"state,omitempty"`
+	TotalUnread    int64          `protobuf:"varint,7,opt,name=totalUnread,proto3" json:"totalUnread,omitempty"`
 }
 
 func (x *ConversationRender) Reset() {
@@ -1440,6 +1441,13 @@ func (x *ConversationRender) GetState() string {
 		return x.State
 	}
 	return ""
+}
+
+func (x *ConversationRender) GetTotalUnread() int64 {
+	if x != nil {
+		return x.TotalUnread
+	}
+	return 0
 }
 
 type Participant struct {

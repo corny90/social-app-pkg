@@ -172,6 +172,7 @@ message ConversationRender {
   string editedAt = 4;
   string metadata = 5;
   string state = 6;
+  int64 totalUnread = 7;
 }
 
 message Participant {
