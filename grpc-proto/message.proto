@@ -93,6 +93,12 @@ message DeleteMessageRequest {
 }
 message DeleteMessageResponse {}
 
+// Read Message
+message ReadMessageRequest {
+  string conversationID = 1;
+}
+message ReadMessageResponse {}
+
 // Fetch Conversation Messages
 message FetchConversationMessagesRequest {
   string senderID = 1;

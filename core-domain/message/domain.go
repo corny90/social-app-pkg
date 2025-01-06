@@ -14,6 +14,10 @@ type UserMessageRequest struct {
 	Content       string     `json:"content"`
 }
 
+type ReadMessageRequest struct {
+	ConversationID gocql.UUID `json:"conversation_id"`
+}
+
 // ---------------------------------------------------------
 // USER PROFILE MODEL
 
@@ -130,6 +134,11 @@ type Feedback struct {
 type WsPayload struct {
 	Action  string             `json:"action"`
 	Payload UserMessageRequest `json:"payload"`
+}
+
+type ReadWsPayload struct {
+	Action  string             `json:"action"`
+	Payload ReadMessageRequest `json:"payload"`
 }
 
 // ---------------------------------------------------------
