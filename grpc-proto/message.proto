@@ -16,6 +16,7 @@ service MessageService {
   rpc EditMessage (EditMessageRequest) returns (EditMessageResponse);
   rpc FetchMessage (FetchMessageRequest) returns (FetchMessageResponse);
   rpc DeleteMessage (DeleteMessageRequest) returns (DeleteMessageResponse);
+  rpc ReadMessage (ReadMessageRequest) returns (ReadMessageResponse);
   rpc FetchConversationMessages (FetchConversationMessagesRequest) returns (FetchConversationMessagesResponse);
   rpc DeleteConversation (DeleteConversationRequest) returns (DeleteConversationResponse);
   rpc FetchAllUserConversations (FetchAllUserConversationsRequest) returns (FetchAllUserConversationsResponse);

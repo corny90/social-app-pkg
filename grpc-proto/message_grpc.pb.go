@@ -29,6 +29,7 @@ const (
 	MessageService_EditMessage_FullMethodName               = "/message.MessageService/EditMessage"
 	MessageService_FetchMessage_FullMethodName              = "/message.MessageService/FetchMessage"
 	MessageService_DeleteMessage_FullMethodName             = "/message.MessageService/DeleteMessage"
+	MessageService_ReadMessage_FullMethodName               = "/message.MessageService/ReadMessage"
 	MessageService_FetchConversationMessages_FullMethodName = "/message.MessageService/FetchConversationMessages"
 	MessageService_DeleteConversation_FullMethodName        = "/message.MessageService/DeleteConversation"
 	MessageService_FetchAllUserConversations_FullMethodName = "/message.MessageService/FetchAllUserConversations"
@@ -48,6 +49,7 @@ type MessageServiceClient interface {
 	EditMessage(ctx context.Context, in *EditMessageRequest, opts ...grpc.CallOption) (*EditMessageResponse, error)
 	FetchMessage(ctx context.Context, in *FetchMessageRequest, opts ...grpc.CallOption) (*FetchMessageResponse, error)
 	DeleteMessage(ctx context.Context, in *DeleteMessageRequest, opts ...grpc.CallOption) (*DeleteMessageResponse, error)
+	ReadMessage(ctx context.Context, in *ReadMessageRequest, opts ...grpc.CallOption) (*ReadMessageResponse, error)
 	FetchConversationMessages(ctx context.Context, in *FetchConversationMessagesRequest, opts ...grpc.CallOption) (*FetchConversationMessagesResponse, error)
 	DeleteConversation(ctx context.Context, in *DeleteConversationRequest, opts ...grpc.CallOption) (*DeleteConversationResponse, error)
 	FetchAllUserConversations(ctx context.Context, in *FetchAllUserConversationsRequest, opts ...grpc.CallOption) (*FetchAllUserConversationsResponse, error)
@@ -161,6 +163,16 @@ func (c *messageServiceClient) DeleteMessage(ctx context.Context, in *DeleteMess
 	return out, nil
 }
 
+func (c *messageServiceClient) ReadMessage(ctx context.Context, in *ReadMessageRequest, opts ...grpc.CallOption) (*ReadMessageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReadMessageResponse)
+	err := c.cc.Invoke(ctx, MessageService_ReadMessage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *messageServiceClient) FetchConversationMessages(ctx context.Context, in *FetchConversationMessagesRequest, opts ...grpc.CallOption) (*FetchConversationMessagesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(FetchConversationMessagesResponse)
@@ -205,6 +217,7 @@ type MessageServiceServer interface {
 	EditMessage(context.Context, *EditMessageRequest) (*EditMessageResponse, error)
 	FetchMessage(context.Context, *FetchMessageRequest) (*FetchMessageResponse, error)
 	DeleteMessage(context.Context, *DeleteMessageRequest) (*DeleteMessageResponse, error)
+	ReadMessage(context.Context, *ReadMessageRequest) (*ReadMessageResponse, error)
 	FetchConversationMessages(context.Context, *FetchConversationMessagesRequest) (*FetchConversationMessagesResponse, error)
 	DeleteConversation(context.Context, *DeleteConversationRequest) (*DeleteConversationResponse, error)
 	FetchAllUserConversations(context.Context, *FetchAllUserConversationsRequest) (*FetchAllUserConversationsResponse, error)
@@ -247,6 +260,9 @@ func (UnimplementedMessageServiceServer) FetchMessage(context.Context, *FetchMes
 }
 func (UnimplementedMessageServiceServer) DeleteMessage(context.Context, *DeleteMessageRequest) (*DeleteMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMessage not implemented")
+}
+func (UnimplementedMessageServiceServer) ReadMessage(context.Context, *ReadMessageRequest) (*ReadMessageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadMessage not implemented")
 }
 func (UnimplementedMessageServiceServer) FetchConversationMessages(context.Context, *FetchConversationMessagesRequest) (*FetchConversationMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FetchConversationMessages not implemented")
@@ -458,6 +474,24 @@ func _MessageService_DeleteMessage_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MessageService_ReadMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadMessageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MessageServiceServer).ReadMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MessageService_ReadMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MessageServiceServer).ReadMessage(ctx, req.(*ReadMessageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _MessageService_FetchConversationMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FetchConversationMessagesRequest)
 	if err := dec(in); err != nil {
@@ -558,6 +592,10 @@ var MessageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteMessage",
 			Handler:    _MessageService_DeleteMessage_Handler,
+		},
+		{
+			MethodName: "ReadMessage",
+			Handler:    _MessageService_ReadMessage_Handler,
 		},
 		{
 			MethodName: "FetchConversationMessages",
