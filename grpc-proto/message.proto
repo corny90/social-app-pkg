@@ -141,6 +141,7 @@ message FetchConversationMessageCounterResponse {
 // Store Conversation Message Counter
 message StoreConversationCounterRequest {
   string conversationID = 1;
+  repeated string messageID = 2;
 }
 message StoreConversationCounterResponse {}
 
