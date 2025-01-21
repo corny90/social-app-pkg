@@ -20,7 +20,8 @@ service MessageService {
   rpc FetchConversationMessages (FetchConversationMessagesRequest) returns (FetchConversationMessagesResponse);
   rpc DeleteConversation (DeleteConversationRequest) returns (DeleteConversationResponse);
   rpc FetchAllUserConversations (FetchAllUserConversationsRequest) returns (FetchAllUserConversationsResponse);
-
+  rpc FetchConversationMessageCounter (FetchConversationMessageCounterRequest) returns (FetchConversationMessageCounterResponse);
+  rpc StoreConversationMessageCounter (StoreConversationCounterRequest) returns (StoreConversationCounterResponse);
 }
 
 //--------------------------------------
@@ -127,6 +128,21 @@ message FetchAllUserConversationsResponse {
   repeated ConversationRender conversations = 1;
   bytes page_state = 2;
 }
+
+// Fetch Conversation Messages Counter
+message FetchConversationMessageCounterRequest {
+  string conversationID = 1;
+}
+message FetchConversationMessageCounterResponse {
+  string conversationID = 1;
+  repeated string messageID = 2;
+}
+
+// Store Conversation Message Counter
+message StoreConversationCounterRequest {
+  string conversationID = 1;
+}
+message StoreConversationCounterResponse {}
 
 
 

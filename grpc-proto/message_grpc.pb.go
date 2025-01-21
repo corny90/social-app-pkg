@@ -19,20 +19,22 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MessageService_PingApiMessage_FullMethodName            = "/message.MessageService/PingApiMessage"
-	MessageService_CustomerMessage_FullMethodName           = "/message.MessageService/CustomerMessage"
-	MessageService_ChatbotMessage_FullMethodName            = "/message.MessageService/ChatbotMessage"
-	MessageService_PingTasksQueue_FullMethodName            = "/message.MessageService/PingTasksQueue"
-	MessageService_CreateTaskMessage_FullMethodName         = "/message.MessageService/CreateTaskMessage"
-	MessageService_CompleteTaskMessage_FullMethodName       = "/message.MessageService/CompleteTaskMessage"
-	MessageService_UserSendMessage_FullMethodName           = "/message.MessageService/UserSendMessage"
-	MessageService_EditMessage_FullMethodName               = "/message.MessageService/EditMessage"
-	MessageService_FetchMessage_FullMethodName              = "/message.MessageService/FetchMessage"
-	MessageService_DeleteMessage_FullMethodName             = "/message.MessageService/DeleteMessage"
-	MessageService_ReadMessage_FullMethodName               = "/message.MessageService/ReadMessage"
-	MessageService_FetchConversationMessages_FullMethodName = "/message.MessageService/FetchConversationMessages"
-	MessageService_DeleteConversation_FullMethodName        = "/message.MessageService/DeleteConversation"
-	MessageService_FetchAllUserConversations_FullMethodName = "/message.MessageService/FetchAllUserConversations"
+	MessageService_PingApiMessage_FullMethodName                  = "/message.MessageService/PingApiMessage"
+	MessageService_CustomerMessage_FullMethodName                 = "/message.MessageService/CustomerMessage"
+	MessageService_ChatbotMessage_FullMethodName                  = "/message.MessageService/ChatbotMessage"
+	MessageService_PingTasksQueue_FullMethodName                  = "/message.MessageService/PingTasksQueue"
+	MessageService_CreateTaskMessage_FullMethodName               = "/message.MessageService/CreateTaskMessage"
+	MessageService_CompleteTaskMessage_FullMethodName             = "/message.MessageService/CompleteTaskMessage"
+	MessageService_UserSendMessage_FullMethodName                 = "/message.MessageService/UserSendMessage"
+	MessageService_EditMessage_FullMethodName                     = "/message.MessageService/EditMessage"
+	MessageService_FetchMessage_FullMethodName                    = "/message.MessageService/FetchMessage"
+	MessageService_DeleteMessage_FullMethodName                   = "/message.MessageService/DeleteMessage"
+	MessageService_ReadMessage_FullMethodName                     = "/message.MessageService/ReadMessage"
+	MessageService_FetchConversationMessages_FullMethodName       = "/message.MessageService/FetchConversationMessages"
+	MessageService_DeleteConversation_FullMethodName              = "/message.MessageService/DeleteConversation"
+	MessageService_FetchAllUserConversations_FullMethodName       = "/message.MessageService/FetchAllUserConversations"
+	MessageService_FetchConversationMessageCounter_FullMethodName = "/message.MessageService/FetchConversationMessageCounter"
+	MessageService_StoreConversationMessageCounter_FullMethodName = "/message.MessageService/StoreConversationMessageCounter"
 )
 
 // MessageServiceClient is the client API for MessageService service.
@@ -53,6 +55,8 @@ type MessageServiceClient interface {
 	FetchConversationMessages(ctx context.Context, in *FetchConversationMessagesRequest, opts ...grpc.CallOption) (*FetchConversationMessagesResponse, error)
 	DeleteConversation(ctx context.Context, in *DeleteConversationRequest, opts ...grpc.CallOption) (*DeleteConversationResponse, error)
 	FetchAllUserConversations(ctx context.Context, in *FetchAllUserConversationsRequest, opts ...grpc.CallOption) (*FetchAllUserConversationsResponse, error)
+	FetchConversationMessageCounter(ctx context.Context, in *FetchConversationMessageCounterRequest, opts ...grpc.CallOption) (*FetchConversationMessageCounterResponse, error)
+	StoreConversationMessageCounter(ctx context.Context, in *StoreConversationCounterRequest, opts ...grpc.CallOption) (*StoreConversationCounterResponse, error)
 }
 
 type messageServiceClient struct {
@@ -203,6 +207,26 @@ func (c *messageServiceClient) FetchAllUserConversations(ctx context.Context, in
 	return out, nil
 }
 
+func (c *messageServiceClient) FetchConversationMessageCounter(ctx context.Context, in *FetchConversationMessageCounterRequest, opts ...grpc.CallOption) (*FetchConversationMessageCounterResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FetchConversationMessageCounterResponse)
+	err := c.cc.Invoke(ctx, MessageService_FetchConversationMessageCounter_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *messageServiceClient) StoreConversationMessageCounter(ctx context.Context, in *StoreConversationCounterRequest, opts ...grpc.CallOption) (*StoreConversationCounterResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StoreConversationCounterResponse)
+	err := c.cc.Invoke(ctx, MessageService_StoreConversationMessageCounter_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MessageServiceServer is the server API for MessageService service.
 // All implementations must embed UnimplementedMessageServiceServer
 // for forward compatibility.
@@ -221,6 +245,8 @@ type MessageServiceServer interface {
 	FetchConversationMessages(context.Context, *FetchConversationMessagesRequest) (*FetchConversationMessagesResponse, error)
 	DeleteConversation(context.Context, *DeleteConversationRequest) (*DeleteConversationResponse, error)
 	FetchAllUserConversations(context.Context, *FetchAllUserConversationsRequest) (*FetchAllUserConversationsResponse, error)
+	FetchConversationMessageCounter(context.Context, *FetchConversationMessageCounterRequest) (*FetchConversationMessageCounterResponse, error)
+	StoreConversationMessageCounter(context.Context, *StoreConversationCounterRequest) (*StoreConversationCounterResponse, error)
 	mustEmbedUnimplementedMessageServiceServer()
 }
 
@@ -272,6 +298,12 @@ func (UnimplementedMessageServiceServer) DeleteConversation(context.Context, *De
 }
 func (UnimplementedMessageServiceServer) FetchAllUserConversations(context.Context, *FetchAllUserConversationsRequest) (*FetchAllUserConversationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FetchAllUserConversations not implemented")
+}
+func (UnimplementedMessageServiceServer) FetchConversationMessageCounter(context.Context, *FetchConversationMessageCounterRequest) (*FetchConversationMessageCounterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FetchConversationMessageCounter not implemented")
+}
+func (UnimplementedMessageServiceServer) StoreConversationMessageCounter(context.Context, *StoreConversationCounterRequest) (*StoreConversationCounterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StoreConversationMessageCounter not implemented")
 }
 func (UnimplementedMessageServiceServer) mustEmbedUnimplementedMessageServiceServer() {}
 func (UnimplementedMessageServiceServer) testEmbeddedByValue()                        {}
@@ -546,6 +578,42 @@ func _MessageService_FetchAllUserConversations_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MessageService_FetchConversationMessageCounter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FetchConversationMessageCounterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MessageServiceServer).FetchConversationMessageCounter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MessageService_FetchConversationMessageCounter_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MessageServiceServer).FetchConversationMessageCounter(ctx, req.(*FetchConversationMessageCounterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MessageService_StoreConversationMessageCounter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StoreConversationCounterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MessageServiceServer).StoreConversationMessageCounter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MessageService_StoreConversationMessageCounter_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MessageServiceServer).StoreConversationMessageCounter(ctx, req.(*StoreConversationCounterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MessageService_ServiceDesc is the grpc.ServiceDesc for MessageService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -608,6 +676,14 @@ var MessageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FetchAllUserConversations",
 			Handler:    _MessageService_FetchAllUserConversations_Handler,
+		},
+		{
+			MethodName: "FetchConversationMessageCounter",
+			Handler:    _MessageService_FetchConversationMessageCounter_Handler,
+		},
+		{
+			MethodName: "StoreConversationMessageCounter",
+			Handler:    _MessageService_StoreConversationMessageCounter_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
