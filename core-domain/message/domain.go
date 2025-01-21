@@ -97,6 +97,11 @@ type ConversationByParticipants struct {
 	ConversationID gocql.UUID   `json:"conversation_id"`
 }
 
+type ConversationMessageCounters struct {
+	ConversationID gocql.UUID   `json:"conversation_id"`
+	MessageID      []gocql.UUID `json:"message_id"`
+}
+
 type Message struct {
 	MessageID      gocql.UUID `json:"message_id"`
 	ConversationID gocql.UUID `json:"conversation_id"`
