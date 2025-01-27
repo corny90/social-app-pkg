@@ -49,6 +49,7 @@ type UserBase struct {
 	SignupActionID   int        `json:"signup_action_id"`
 	SignupSource     string     `json:"signup_source"`
 	InitialContentID gocql.UUID `json:"initial_content_id"`
+	Roles            []string   `json:"roles"`
 }
 type UsersBase struct {
 	Users []UserBase `json:"users"`
@@ -77,6 +78,11 @@ type UserType struct {
 
 type UserByEmail struct {
 	Email  string     `json:"email"`
+	UserID gocql.UUID `json:"user_id"`
+}
+
+type UserByRole struct {
+	Role   string     `json:"role"`
 	UserID gocql.UUID `json:"user_id"`
 }
 
