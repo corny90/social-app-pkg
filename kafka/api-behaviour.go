@@ -2,6 +2,7 @@ package pkg_kafka
 
 import (
 	"encoding/json"
+	"time"
 )
 
 type Payload struct {
@@ -12,18 +13,20 @@ type Payload struct {
 // API-BEHAVIOUR - TRACKER
 
 type TrackerPayloadRequest struct {
-	UserID       string   `json:"userId"`
-	PostID       string   `json:"postId"`
-	TrackType    string   `json:"trackType"`
-	ViewDuration int      `json:"viewDuration"`
-	Keywords     []string `json:"keywords"`
-	Clicks       Clicks   `json:"clicks"`
+	UserID       string    `json:"userId"`
+	PostID       string    `json:"postId"`
+	TrackType    string    `json:"trackType"`
+	ViewDuration int       `json:"viewDuration"`
+	Keywords     []string  `json:"keywords"`
+	Clicks       Clicks    `json:"clicks"`
+	CreatedAt    time.Time `json:"createdAt"`
 }
 
 type ClickTrackerPayloadRequest struct {
-	UserID      string `json:"userId"`
-	PostID      string `json:"postId"`
-	ClickAction string `json:"clickAction"`
+	UserID      string    `json:"userId"`
+	PostID      string    `json:"postId"`
+	ClickAction string    `json:"clickAction"`
+	CreatedAt   time.Time `json:"createdAt"`
 
 	// AUX optional data based on ClickAction
 	PeerUserID string `json:"peerUserId,omitempty"`
@@ -38,9 +41,10 @@ type Clicks struct {
 }
 
 type EventRequest struct {
-	Name   string          `json:"event"`
-	UserID string          `json:"userId"`
-	Data   json.RawMessage `json:"data"`
+	Name      string          `json:"event"`
+	UserID    string          `json:"userId"`
+	CreatedAt time.Time       `json:"createdAt"`
+	Data      json.RawMessage `json:"data"`
 }
 
 type SignupEventData struct {
