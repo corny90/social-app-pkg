@@ -5,7 +5,7 @@ import (
 )
 
 type UserVisitPayload struct {
-	UserId         string    `json:"userId"`
+	UserID         string    `json:"userId"`
 	Timestamp      time.Time `json:"timestamp"`
 	RemoteAddress  string    `json:"remoteAddr"`
 	City           string    `json:"city"`
