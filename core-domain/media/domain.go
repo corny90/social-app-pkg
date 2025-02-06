@@ -16,7 +16,6 @@ type PostMedia struct {
 	MediaFilename string
 	CoverFilename string
 	Metadata      string
-	IsAnimated    bool
 }
 
 type AvatarMedia struct {
