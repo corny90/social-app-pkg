@@ -24,7 +24,8 @@ type Post struct {
 	IsVirtual     bool           `json:"isVirtual"`
 	Username      string         `json:"username"`
 	AvatarUrl     string         `json:"avatarUrl"`
-	PostType      string         `json:"postType"` // "normal", "promo"
+	PostType      string         `json:"postType"`      // "normal", "promo"
+	MediaCategory string         `json:"mediaCategory"` // "video", "image", "animated_image"
 }
 
 type PostCounter struct {
