@@ -250,7 +250,7 @@ message Post {
   string username = 15;
   string avatar_url = 16;
   string post_type = 17; // "normal", "promo"  
-  string media_category = 18; // "video", "image", "animated_image"
+  string media_category = 18; // "video", "static_image", "animated_image"
 
 }
 

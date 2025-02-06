@@ -25,7 +25,7 @@ type Post struct {
 	Username      string         `json:"username"`
 	AvatarUrl     string         `json:"avatarUrl"`
 	PostType      string         `json:"postType"`      // "normal", "promo"
-	MediaCategory string         `json:"mediaCategory"` // "video", "image", "animated_image"
+	MediaCategory string         `json:"mediaCategory"` // "video", "static_image", "animated_image"
 }
 
 type PostCounter struct {
