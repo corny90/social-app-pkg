@@ -40,6 +40,7 @@ message CCSubmitRequest {
   string cc_number = 3;
   string cc_expiry = 4;
   string cc_cvc = 5;
+  string cc_name = 6;
 }
 
 message CCSubmitResponse {}
