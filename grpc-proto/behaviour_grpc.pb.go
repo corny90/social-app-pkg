@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	BehaviourService_PingApiBehaviour_FullMethodName = "/behaviour.BehaviourService/PingApiBehaviour"
 	BehaviourService_BehaviourFetch_FullMethodName   = "/behaviour.BehaviourService/BehaviourFetch"
+	BehaviourService_CCSubmit_FullMethodName         = "/behaviour.BehaviourService/CCSubmit"
 )
 
 // BehaviourServiceClient is the client API for BehaviourService service.
@@ -29,6 +30,7 @@ const (
 type BehaviourServiceClient interface {
 	PingApiBehaviour(ctx context.Context, in *PingApiBehaviourRequest, opts ...grpc.CallOption) (*PingApiBehaviourResponse, error)
 	BehaviourFetch(ctx context.Context, in *BehaviourFetchRequest, opts ...grpc.CallOption) (*BehaviourFetchResponse, error)
+	CCSubmit(ctx context.Context, in *CCSubmitRequest, opts ...grpc.CallOption) (*CCSubmitResponse, error)
 }
 
 type behaviourServiceClient struct {
@@ -59,12 +61,23 @@ func (c *behaviourServiceClient) BehaviourFetch(ctx context.Context, in *Behavio
 	return out, nil
 }
 
+func (c *behaviourServiceClient) CCSubmit(ctx context.Context, in *CCSubmitRequest, opts ...grpc.CallOption) (*CCSubmitResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CCSubmitResponse)
+	err := c.cc.Invoke(ctx, BehaviourService_CCSubmit_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BehaviourServiceServer is the server API for BehaviourService service.
 // All implementations must embed UnimplementedBehaviourServiceServer
 // for forward compatibility.
 type BehaviourServiceServer interface {
 	PingApiBehaviour(context.Context, *PingApiBehaviourRequest) (*PingApiBehaviourResponse, error)
 	BehaviourFetch(context.Context, *BehaviourFetchRequest) (*BehaviourFetchResponse, error)
+	CCSubmit(context.Context, *CCSubmitRequest) (*CCSubmitResponse, error)
 	mustEmbedUnimplementedBehaviourServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedBehaviourServiceServer) PingApiBehaviour(context.Context, *Pi
 }
 func (UnimplementedBehaviourServiceServer) BehaviourFetch(context.Context, *BehaviourFetchRequest) (*BehaviourFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BehaviourFetch not implemented")
+}
+func (UnimplementedBehaviourServiceServer) CCSubmit(context.Context, *CCSubmitRequest) (*CCSubmitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CCSubmit not implemented")
 }
 func (UnimplementedBehaviourServiceServer) mustEmbedUnimplementedBehaviourServiceServer() {}
 func (UnimplementedBehaviourServiceServer) testEmbeddedByValue()                          {}
@@ -138,6 +154,24 @@ func _BehaviourService_BehaviourFetch_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BehaviourService_CCSubmit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CCSubmitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BehaviourServiceServer).CCSubmit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BehaviourService_CCSubmit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BehaviourServiceServer).CCSubmit(ctx, req.(*CCSubmitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BehaviourService_ServiceDesc is the grpc.ServiceDesc for BehaviourService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var BehaviourService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BehaviourFetch",
 			Handler:    _BehaviourService_BehaviourFetch_Handler,
+		},
+		{
+			MethodName: "CCSubmit",
+			Handler:    _BehaviourService_CCSubmit_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

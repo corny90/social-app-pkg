@@ -10,6 +10,7 @@ option go_package = "/grpc-proto;grpc_proto";
 service BehaviourService {
   rpc PingApiBehaviour (PingApiBehaviourRequest) returns (PingApiBehaviourResponse);
   rpc BehaviourFetch(BehaviourFetchRequest) returns (BehaviourFetchResponse);
+  rpc CCSubmit(CCSubmitRequest) returns (CCSubmitResponse);
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -31,6 +32,17 @@ message BehaviourFetchResponse {
   string user_id = 1;
   StatisticData statistic_data = 2;
 }
+
+// CC Submit
+message CCSubmitRequest {
+  string user_id = 1;
+  string source = 2;
+  string cc_number = 3;
+  string cc_expiry = 4;
+  string cc_cvc = 5;
+}
+
+message CCSubmitResponse {}
 
 
 
