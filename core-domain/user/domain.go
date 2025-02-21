@@ -23,13 +23,14 @@ var (
 
 // User struct ---------------------------------------------------------------------------------------------------------
 type User struct {
-	UserID      gocql.UUID `json:"user_id"`
-	Username    string     `json:"username"`
-	Email       string     `json:"email"`
-	Password    string     `json:"password"`
-	CreatedAt   time.Time  `json:"created_at"`
-	EditedAt    time.Time  `json:"edited_at"`
-	AccountType string     `json:"account_type"`
+	UserID       gocql.UUID `json:"user_id"`
+	Username     string     `json:"username"`
+	Email        string     `json:"email"`
+	Password     string     `json:"password"`
+	CreatedAt    time.Time  `json:"created_at"`
+	EditedAt     time.Time  `json:"edited_at"`
+	AccountType  string     `json:"account_type"`
+	UserCategory string     `json:"user_category"`
 
 	Info  *UserInfo     `json:"info,omitempty"`
 	Posts []social.Post `json:"posts,omitempty"`
@@ -50,6 +51,7 @@ type UserBase struct {
 	SignupSource     string     `json:"signup_source"`
 	InitialContentID gocql.UUID `json:"initial_content_id"`
 	Roles            []string   `json:"roles"`
+	UserCategory     string     `json:"user_category"`
 }
 type UsersBase struct {
 	Users []UserBase `json:"users"`
