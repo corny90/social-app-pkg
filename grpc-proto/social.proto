@@ -251,7 +251,8 @@ message Post {
   string avatar_url = 16;
   string post_type = 17; // "normal", "promo"  
   string media_category = 18; // "video", "static_image", "animated_image"
-
+  string user_category = 19; // "dating profiles", "influencers"
+  string user_looking_for = 20; // CasualEncounters, Dating, FriendsWithBenefits, OnlineWebcamFun, DiscreetRomance, LongTermRelationship
 }
 
 message PostCounter {
