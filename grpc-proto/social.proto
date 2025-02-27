@@ -30,6 +30,10 @@ service SocialService {
   rpc FollowingsFetch(FollowingsFetchRequest) returns (FollowingsFetchResponse);
   rpc FollowersFetch(FollowersFetchRequest) returns (FollowersFetchResponse);
   rpc FollowsCounterFetch(FollowsCounterFetchRequest) returns (FollowsCounterFetchResponse);
+
+  rpc ProfileLikeCreate(ProfileLikeCreateRequest) returns (ProfileLikeCreateResponse);
+  rpc ProfileLikeDelete(ProfileLikeDeleteRequest) returns (ProfileLikeDeleteResponse);
+  rpc ProfileLikeGet(ProfileLikeGetRequest) returns (ProfileLikeGetResponse);
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -226,6 +230,30 @@ message FollowsCounterFetchRequest {
 message FollowsCounterFetchResponse {
   int64 counter_followers = 1;
   int64 counter_followings = 2;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// PROFILE LIKE CREATE
+message ProfileLikeCreateRequest {
+  string liked_id = 1;
+  string liked_by_id = 2;
+}
+message ProfileLikeCreateResponse {}
+
+// PROFILE LIKE DELETE
+message ProfileLikeDeleteRequest {
+  string liked_id = 1;
+  string liked_by_id = 2;
+}
+message ProfileLikeDeleteResponse {}
+
+// PROFILE LIKE GET
+message ProfileLikeGetRequest {
+  string liked_id = 1;
+  string liked_by_id = 2;
+}
+message ProfileLikeGetResponse {
+  bool liked = 1;
 }
 
 // ------------------------------------------------------------------------------------------------------

@@ -39,6 +39,9 @@ const (
 	SocialService_FollowingsFetch_FullMethodName                   = "/social.SocialService/FollowingsFetch"
 	SocialService_FollowersFetch_FullMethodName                    = "/social.SocialService/FollowersFetch"
 	SocialService_FollowsCounterFetch_FullMethodName               = "/social.SocialService/FollowsCounterFetch"
+	SocialService_ProfileLikeCreate_FullMethodName                 = "/social.SocialService/ProfileLikeCreate"
+	SocialService_ProfileLikeDelete_FullMethodName                 = "/social.SocialService/ProfileLikeDelete"
+	SocialService_ProfileLikeGet_FullMethodName                    = "/social.SocialService/ProfileLikeGet"
 )
 
 // SocialServiceClient is the client API for SocialService service.
@@ -65,6 +68,9 @@ type SocialServiceClient interface {
 	FollowingsFetch(ctx context.Context, in *FollowingsFetchRequest, opts ...grpc.CallOption) (*FollowingsFetchResponse, error)
 	FollowersFetch(ctx context.Context, in *FollowersFetchRequest, opts ...grpc.CallOption) (*FollowersFetchResponse, error)
 	FollowsCounterFetch(ctx context.Context, in *FollowsCounterFetchRequest, opts ...grpc.CallOption) (*FollowsCounterFetchResponse, error)
+	ProfileLikeCreate(ctx context.Context, in *ProfileLikeCreateRequest, opts ...grpc.CallOption) (*ProfileLikeCreateResponse, error)
+	ProfileLikeDelete(ctx context.Context, in *ProfileLikeDeleteRequest, opts ...grpc.CallOption) (*ProfileLikeDeleteResponse, error)
+	ProfileLikeGet(ctx context.Context, in *ProfileLikeGetRequest, opts ...grpc.CallOption) (*ProfileLikeGetResponse, error)
 }
 
 type socialServiceClient struct {
@@ -275,6 +281,36 @@ func (c *socialServiceClient) FollowsCounterFetch(ctx context.Context, in *Follo
 	return out, nil
 }
 
+func (c *socialServiceClient) ProfileLikeCreate(ctx context.Context, in *ProfileLikeCreateRequest, opts ...grpc.CallOption) (*ProfileLikeCreateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileLikeCreateResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileLikeCreate_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) ProfileLikeDelete(ctx context.Context, in *ProfileLikeDeleteRequest, opts ...grpc.CallOption) (*ProfileLikeDeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileLikeDeleteResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileLikeDelete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) ProfileLikeGet(ctx context.Context, in *ProfileLikeGetRequest, opts ...grpc.CallOption) (*ProfileLikeGetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileLikeGetResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileLikeGet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SocialServiceServer is the server API for SocialService service.
 // All implementations must embed UnimplementedSocialServiceServer
 // for forward compatibility.
@@ -299,6 +335,9 @@ type SocialServiceServer interface {
 	FollowingsFetch(context.Context, *FollowingsFetchRequest) (*FollowingsFetchResponse, error)
 	FollowersFetch(context.Context, *FollowersFetchRequest) (*FollowersFetchResponse, error)
 	FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error)
+	ProfileLikeCreate(context.Context, *ProfileLikeCreateRequest) (*ProfileLikeCreateResponse, error)
+	ProfileLikeDelete(context.Context, *ProfileLikeDeleteRequest) (*ProfileLikeDeleteResponse, error)
+	ProfileLikeGet(context.Context, *ProfileLikeGetRequest) (*ProfileLikeGetResponse, error)
 	mustEmbedUnimplementedSocialServiceServer()
 }
 
@@ -368,6 +407,15 @@ func (UnimplementedSocialServiceServer) FollowersFetch(context.Context, *Followe
 }
 func (UnimplementedSocialServiceServer) FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FollowsCounterFetch not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileLikeCreate(context.Context, *ProfileLikeCreateRequest) (*ProfileLikeCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileLikeCreate not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileLikeDelete(context.Context, *ProfileLikeDeleteRequest) (*ProfileLikeDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileLikeDelete not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileLikeGet(context.Context, *ProfileLikeGetRequest) (*ProfileLikeGetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileLikeGet not implemented")
 }
 func (UnimplementedSocialServiceServer) mustEmbedUnimplementedSocialServiceServer() {}
 func (UnimplementedSocialServiceServer) testEmbeddedByValue()                       {}
@@ -750,6 +798,60 @@ func _SocialService_FollowsCounterFetch_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SocialService_ProfileLikeCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileLikeCreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileLikeCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileLikeCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileLikeCreate(ctx, req.(*ProfileLikeCreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_ProfileLikeDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileLikeDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileLikeDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileLikeDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileLikeDelete(ctx, req.(*ProfileLikeDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_ProfileLikeGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileLikeGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileLikeGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileLikeGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileLikeGet(ctx, req.(*ProfileLikeGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SocialService_ServiceDesc is the grpc.ServiceDesc for SocialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -836,6 +938,18 @@ var SocialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FollowsCounterFetch",
 			Handler:    _SocialService_FollowsCounterFetch_Handler,
+		},
+		{
+			MethodName: "ProfileLikeCreate",
+			Handler:    _SocialService_ProfileLikeCreate_Handler,
+		},
+		{
+			MethodName: "ProfileLikeDelete",
+			Handler:    _SocialService_ProfileLikeDelete_Handler,
+		},
+		{
+			MethodName: "ProfileLikeGet",
+			Handler:    _SocialService_ProfileLikeGet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
