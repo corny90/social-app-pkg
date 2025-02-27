@@ -8,24 +8,26 @@ import (
 )
 
 type Post struct {
-	PostID        gocql.UUID     `json:"postId"`
-	UserTargetID  gocql.UUID     `json:"userTargetId" validate:"required"`
-	UserCreatorID gocql.UUID     `json:"userCreatorId"`
-	CreatedAt     time.Time      `json:"createdAt"`
-	Private       *bool          `json:"private" validate:"required"`
-	PrivateType   string         `json:"privateType"` // "only_me", "only_to_target", "to_a_public"
-	ContentText   string         `json:"contentText"`
-	ContentStatus string         `json:"contentStatus"`
-	LinkUrl       string         `json:"linkUrl"` // optional promoted post link
-	Keywords      []string       `json:"keywords"`
-	Media         []*proto.Media `json:"media"`
-	Counters      PostCounter    `json:"counters"`
-	IsLiked       bool           `json:"isLiked"`
-	IsVirtual     bool           `json:"isVirtual"`
-	Username      string         `json:"username"`
-	AvatarUrl     string         `json:"avatarUrl"`
-	PostType      string         `json:"postType"`      // "normal", "promo"
-	MediaCategory string         `json:"mediaCategory"` // "video", "static_image", "animated_image"
+	PostID         gocql.UUID     `json:"postId"`
+	UserTargetID   gocql.UUID     `json:"userTargetId" validate:"required"`
+	UserCreatorID  gocql.UUID     `json:"userCreatorId"`
+	CreatedAt      time.Time      `json:"createdAt"`
+	Private        *bool          `json:"private" validate:"required"`
+	PrivateType    string         `json:"privateType"` // "only_me", "only_to_target", "to_a_public"
+	ContentText    string         `json:"contentText"`
+	ContentStatus  string         `json:"contentStatus"`
+	LinkUrl        string         `json:"linkUrl"` // optional promoted post link
+	Keywords       []string       `json:"keywords"`
+	Media          []*proto.Media `json:"media"`
+	Counters       PostCounter    `json:"counters"`
+	IsLiked        bool           `json:"isLiked"`
+	IsVirtual      bool           `json:"isVirtual"`
+	Username       string         `json:"username"`
+	AvatarUrl      string         `json:"avatarUrl"`
+	PostType       string         `json:"postType"`       // "normal", "promo"
+	MediaCategory  string         `json:"mediaCategory"`  // "video", "static_image", "animated_image"
+	UserCategory   string         `json:"userCategory"`   // "dating profiles", "influencers"
+	UserLookingFor string         `json:"userLookingFor"` // CasualEncounters, Dating, FriendsWithBenefits, OnlineWebcamFun, DiscreetRomance, LongTermRelationship
 }
 
 type PostCounter struct {
