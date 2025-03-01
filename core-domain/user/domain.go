@@ -31,6 +31,7 @@ type User struct {
 	EditedAt     time.Time  `json:"edited_at"`
 	AccountType  string     `json:"account_type"`
 	UserCategory string     `json:"user_category"`
+	LookingFor   string     `json:"looking_for"`
 
 	Info  *UserInfo     `json:"info,omitempty"`
 	Posts []social.Post `json:"posts,omitempty"`
@@ -52,6 +53,7 @@ type UserBase struct {
 	InitialContentID gocql.UUID `json:"initial_content_id"`
 	Roles            []string   `json:"roles"`
 	UserCategory     string     `json:"user_category"`
+	LookingFor       string     `json:"looking_for"`
 }
 type UsersBase struct {
 	Users []UserBase `json:"users"`
