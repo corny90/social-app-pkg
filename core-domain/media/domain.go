@@ -7,15 +7,16 @@ import (
 )
 
 type PostMedia struct {
-	UserType      string
-	UserID        gocql.UUID
-	PostID        gocql.UUID
-	CreatedAt     time.Time
-	MediaID       gocql.UUID
-	MediaType     string
-	MediaFilename string
-	CoverFilename string
-	Metadata      string
+	UserType        string
+	UserID          gocql.UUID
+	PostID          gocql.UUID
+	CreatedAt       time.Time
+	MediaID         gocql.UUID
+	MediaType       string
+	MediaFilename   string
+	PreviewFilename string
+	CoverFilename   string
+	Metadata        string
 }
 
 type AvatarMedia struct {
