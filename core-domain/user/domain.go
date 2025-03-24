@@ -33,8 +33,9 @@ type User struct {
 	UserCategory string     `json:"user_category"`
 	LookingFor   string     `json:"looking_for"`
 
-	Info  *UserInfo     `json:"info,omitempty"`
-	Posts []social.Post `json:"posts,omitempty"`
+	Info       *UserInfo     `json:"info,omitempty"`
+	Posts      []social.Post `json:"posts,omitempty"`
+	TotalPosts int           `json:"total_posts"`
 }
 type Users struct {
 	Users []User `json:"users"`
