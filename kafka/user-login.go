@@ -5,4 +5,5 @@ type UserLoginPayload struct {
 	Timestamp  string `json:"timestamp"`
 	RemoteAddr string `json:"remoteAddr"`
 	UserAgent  string `json:"userAgent"`
+	RefId      string `json:"refId"`
 }
