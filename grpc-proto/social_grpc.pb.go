@@ -42,6 +42,9 @@ const (
 	SocialService_ProfileLikeCreate_FullMethodName                 = "/social.SocialService/ProfileLikeCreate"
 	SocialService_ProfileLikeDelete_FullMethodName                 = "/social.SocialService/ProfileLikeDelete"
 	SocialService_ProfileLikeGet_FullMethodName                    = "/social.SocialService/ProfileLikeGet"
+	SocialService_ProfileBlockCreate_FullMethodName                = "/social.SocialService/ProfileBlockCreate"
+	SocialService_ProfileBlockDelete_FullMethodName                = "/social.SocialService/ProfileBlockDelete"
+	SocialService_ProfileBlockGet_FullMethodName                   = "/social.SocialService/ProfileBlockGet"
 )
 
 // SocialServiceClient is the client API for SocialService service.
@@ -71,6 +74,9 @@ type SocialServiceClient interface {
 	ProfileLikeCreate(ctx context.Context, in *ProfileLikeCreateRequest, opts ...grpc.CallOption) (*ProfileLikeCreateResponse, error)
 	ProfileLikeDelete(ctx context.Context, in *ProfileLikeDeleteRequest, opts ...grpc.CallOption) (*ProfileLikeDeleteResponse, error)
 	ProfileLikeGet(ctx context.Context, in *ProfileLikeGetRequest, opts ...grpc.CallOption) (*ProfileLikeGetResponse, error)
+	ProfileBlockCreate(ctx context.Context, in *ProfileBlockCreateRequest, opts ...grpc.CallOption) (*ProfileBlockCreateResponse, error)
+	ProfileBlockDelete(ctx context.Context, in *ProfileBlockDeleteRequest, opts ...grpc.CallOption) (*ProfileBlockDeleteResponse, error)
+	ProfileBlockGet(ctx context.Context, in *ProfileBlockGetRequest, opts ...grpc.CallOption) (*ProfileBlockGetResponse, error)
 }
 
 type socialServiceClient struct {
@@ -311,6 +317,36 @@ func (c *socialServiceClient) ProfileLikeGet(ctx context.Context, in *ProfileLik
 	return out, nil
 }
 
+func (c *socialServiceClient) ProfileBlockCreate(ctx context.Context, in *ProfileBlockCreateRequest, opts ...grpc.CallOption) (*ProfileBlockCreateResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileBlockCreateResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileBlockCreate_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) ProfileBlockDelete(ctx context.Context, in *ProfileBlockDeleteRequest, opts ...grpc.CallOption) (*ProfileBlockDeleteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileBlockDeleteResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileBlockDelete_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *socialServiceClient) ProfileBlockGet(ctx context.Context, in *ProfileBlockGetRequest, opts ...grpc.CallOption) (*ProfileBlockGetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ProfileBlockGetResponse)
+	err := c.cc.Invoke(ctx, SocialService_ProfileBlockGet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SocialServiceServer is the server API for SocialService service.
 // All implementations must embed UnimplementedSocialServiceServer
 // for forward compatibility.
@@ -338,6 +374,9 @@ type SocialServiceServer interface {
 	ProfileLikeCreate(context.Context, *ProfileLikeCreateRequest) (*ProfileLikeCreateResponse, error)
 	ProfileLikeDelete(context.Context, *ProfileLikeDeleteRequest) (*ProfileLikeDeleteResponse, error)
 	ProfileLikeGet(context.Context, *ProfileLikeGetRequest) (*ProfileLikeGetResponse, error)
+	ProfileBlockCreate(context.Context, *ProfileBlockCreateRequest) (*ProfileBlockCreateResponse, error)
+	ProfileBlockDelete(context.Context, *ProfileBlockDeleteRequest) (*ProfileBlockDeleteResponse, error)
+	ProfileBlockGet(context.Context, *ProfileBlockGetRequest) (*ProfileBlockGetResponse, error)
 	mustEmbedUnimplementedSocialServiceServer()
 }
 
@@ -416,6 +455,15 @@ func (UnimplementedSocialServiceServer) ProfileLikeDelete(context.Context, *Prof
 }
 func (UnimplementedSocialServiceServer) ProfileLikeGet(context.Context, *ProfileLikeGetRequest) (*ProfileLikeGetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProfileLikeGet not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileBlockCreate(context.Context, *ProfileBlockCreateRequest) (*ProfileBlockCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileBlockCreate not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileBlockDelete(context.Context, *ProfileBlockDeleteRequest) (*ProfileBlockDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileBlockDelete not implemented")
+}
+func (UnimplementedSocialServiceServer) ProfileBlockGet(context.Context, *ProfileBlockGetRequest) (*ProfileBlockGetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileBlockGet not implemented")
 }
 func (UnimplementedSocialServiceServer) mustEmbedUnimplementedSocialServiceServer() {}
 func (UnimplementedSocialServiceServer) testEmbeddedByValue()                       {}
@@ -852,6 +900,60 @@ func _SocialService_ProfileLikeGet_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SocialService_ProfileBlockCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileBlockCreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileBlockCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileBlockCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileBlockCreate(ctx, req.(*ProfileBlockCreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_ProfileBlockDelete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileBlockDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileBlockDelete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileBlockDelete_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileBlockDelete(ctx, req.(*ProfileBlockDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SocialService_ProfileBlockGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProfileBlockGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).ProfileBlockGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_ProfileBlockGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).ProfileBlockGet(ctx, req.(*ProfileBlockGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SocialService_ServiceDesc is the grpc.ServiceDesc for SocialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -950,6 +1052,18 @@ var SocialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ProfileLikeGet",
 			Handler:    _SocialService_ProfileLikeGet_Handler,
+		},
+		{
+			MethodName: "ProfileBlockCreate",
+			Handler:    _SocialService_ProfileBlockCreate_Handler,
+		},
+		{
+			MethodName: "ProfileBlockDelete",
+			Handler:    _SocialService_ProfileBlockDelete_Handler,
+		},
+		{
+			MethodName: "ProfileBlockGet",
+			Handler:    _SocialService_ProfileBlockGet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

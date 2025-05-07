@@ -34,6 +34,10 @@ service SocialService {
   rpc ProfileLikeCreate(ProfileLikeCreateRequest) returns (ProfileLikeCreateResponse);
   rpc ProfileLikeDelete(ProfileLikeDeleteRequest) returns (ProfileLikeDeleteResponse);
   rpc ProfileLikeGet(ProfileLikeGetRequest) returns (ProfileLikeGetResponse);
+
+  rpc ProfileBlockCreate(ProfileBlockCreateRequest) returns (ProfileBlockCreateResponse);
+  rpc ProfileBlockDelete(ProfileBlockDeleteRequest) returns (ProfileBlockDeleteResponse);
+  rpc ProfileBlockGet(ProfileBlockGetRequest) returns (ProfileBlockGetResponse);
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -254,6 +258,30 @@ message ProfileLikeGetRequest {
 }
 message ProfileLikeGetResponse {
   bool liked = 1;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// PROFILE BLOCK CREATE
+message ProfileBlockCreateRequest {
+  string blocked_id = 1;
+  string blocked_by_id = 2;
+}
+message ProfileBlockCreateResponse {}
+
+// PROFILE Block DELETE
+message ProfileBlockDeleteRequest {
+  string blocked_id = 1;
+  string blocked_by_id = 2;
+}
+message ProfileBlockDeleteResponse {}
+
+// PROFILE Block GET
+message ProfileBlockGetRequest {
+  string blocked_id = 1;
+  string blocked_by_id = 2;
+}
+message ProfileBlockGetResponse {
+  bool blocked = 1;
 }
 
 // ------------------------------------------------------------------------------------------------------
