@@ -19,6 +19,8 @@ service MediaService {
   rpc BackgroundMediaUpload (BackgroundMediaUploadRequest) returns (BackgroundMediaUploadResponse);
   rpc BackgroundMediaFetch (BackgroundMediaFetchRequest) returns (BackgroundMediaFetchResponse);
   rpc BackgroundMediaDelete (BackgroundMediaDeleteRequest) returns (BackgroundMediaDeleteResponse);  
+
+  rpc WebsiteMediaUpload (WebsiteMediaUploadRequest) returns (WebsiteMediaUploadResponse);
 }
 
 // PING
@@ -160,3 +162,12 @@ message BackgroundMediaDeleteRequest {
   string userId = 1;
 }
 message BackgroundMediaDeleteResponse {}
+
+message WebsiteMediaUploadRequest {
+  string mimeType = 1;
+  string fileName = 2;
+  bytes fileBody = 3;
+}
+message WebsiteMediaUploadResponse {
+  string fileUrl = 1;
+}

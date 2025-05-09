@@ -31,6 +31,7 @@ const (
 	MediaService_BackgroundMediaUpload_FullMethodName    = "/media.MediaService/BackgroundMediaUpload"
 	MediaService_BackgroundMediaFetch_FullMethodName     = "/media.MediaService/BackgroundMediaFetch"
 	MediaService_BackgroundMediaDelete_FullMethodName    = "/media.MediaService/BackgroundMediaDelete"
+	MediaService_WebsiteMediaUpload_FullMethodName       = "/media.MediaService/WebsiteMediaUpload"
 )
 
 // MediaServiceClient is the client API for MediaService service.
@@ -49,6 +50,7 @@ type MediaServiceClient interface {
 	BackgroundMediaUpload(ctx context.Context, in *BackgroundMediaUploadRequest, opts ...grpc.CallOption) (*BackgroundMediaUploadResponse, error)
 	BackgroundMediaFetch(ctx context.Context, in *BackgroundMediaFetchRequest, opts ...grpc.CallOption) (*BackgroundMediaFetchResponse, error)
 	BackgroundMediaDelete(ctx context.Context, in *BackgroundMediaDeleteRequest, opts ...grpc.CallOption) (*BackgroundMediaDeleteResponse, error)
+	WebsiteMediaUpload(ctx context.Context, in *WebsiteMediaUploadRequest, opts ...grpc.CallOption) (*WebsiteMediaUploadResponse, error)
 }
 
 type mediaServiceClient struct {
@@ -179,6 +181,16 @@ func (c *mediaServiceClient) BackgroundMediaDelete(ctx context.Context, in *Back
 	return out, nil
 }
 
+func (c *mediaServiceClient) WebsiteMediaUpload(ctx context.Context, in *WebsiteMediaUploadRequest, opts ...grpc.CallOption) (*WebsiteMediaUploadResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WebsiteMediaUploadResponse)
+	err := c.cc.Invoke(ctx, MediaService_WebsiteMediaUpload_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MediaServiceServer is the server API for MediaService service.
 // All implementations must embed UnimplementedMediaServiceServer
 // for forward compatibility.
@@ -195,6 +207,7 @@ type MediaServiceServer interface {
 	BackgroundMediaUpload(context.Context, *BackgroundMediaUploadRequest) (*BackgroundMediaUploadResponse, error)
 	BackgroundMediaFetch(context.Context, *BackgroundMediaFetchRequest) (*BackgroundMediaFetchResponse, error)
 	BackgroundMediaDelete(context.Context, *BackgroundMediaDeleteRequest) (*BackgroundMediaDeleteResponse, error)
+	WebsiteMediaUpload(context.Context, *WebsiteMediaUploadRequest) (*WebsiteMediaUploadResponse, error)
 	mustEmbedUnimplementedMediaServiceServer()
 }
 
@@ -240,6 +253,9 @@ func (UnimplementedMediaServiceServer) BackgroundMediaFetch(context.Context, *Ba
 }
 func (UnimplementedMediaServiceServer) BackgroundMediaDelete(context.Context, *BackgroundMediaDeleteRequest) (*BackgroundMediaDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BackgroundMediaDelete not implemented")
+}
+func (UnimplementedMediaServiceServer) WebsiteMediaUpload(context.Context, *WebsiteMediaUploadRequest) (*WebsiteMediaUploadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WebsiteMediaUpload not implemented")
 }
 func (UnimplementedMediaServiceServer) mustEmbedUnimplementedMediaServiceServer() {}
 func (UnimplementedMediaServiceServer) testEmbeddedByValue()                      {}
@@ -478,6 +494,24 @@ func _MediaService_BackgroundMediaDelete_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MediaService_WebsiteMediaUpload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WebsiteMediaUploadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MediaServiceServer).WebsiteMediaUpload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MediaService_WebsiteMediaUpload_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MediaServiceServer).WebsiteMediaUpload(ctx, req.(*WebsiteMediaUploadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MediaService_ServiceDesc is the grpc.ServiceDesc for MediaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -532,6 +566,10 @@ var MediaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BackgroundMediaDelete",
 			Handler:    _MediaService_BackgroundMediaDelete_Handler,
+		},
+		{
+			MethodName: "WebsiteMediaUpload",
+			Handler:    _MediaService_WebsiteMediaUpload_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
