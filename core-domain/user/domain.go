@@ -124,6 +124,7 @@ type Register struct {
 	SignupActionID   int    `json:"signup_action_id,omitempty"`
 	SignupSource     string `json:"signup_source,omitempty"`
 	InitialContentID string `json:"initial_content_id,omitempty"`
+	BirthDate        string `json:"birth_date,omitempty"`
 }
 
 // Login struct --------------------------------------------------------------------------------------------------------
