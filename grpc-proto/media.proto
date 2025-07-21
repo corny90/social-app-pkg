@@ -88,8 +88,9 @@ message Media {
   string mediaType = 6;
   string mediaFilename = 7;
   string coverFilename = 8;
-  string metadata = 9;
-  string previewFilename = 10;
+  repeated string coverAlternative = 9;
+  string metadata = 10;
+  string previewFilename = 11;
 }
 
 //--------------------------------------
