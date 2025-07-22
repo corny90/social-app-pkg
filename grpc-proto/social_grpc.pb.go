@@ -39,6 +39,7 @@ const (
 	SocialService_FollowingsFetch_FullMethodName                   = "/social.SocialService/FollowingsFetch"
 	SocialService_FollowersFetch_FullMethodName                    = "/social.SocialService/FollowersFetch"
 	SocialService_FollowsCounterFetch_FullMethodName               = "/social.SocialService/FollowsCounterFetch"
+	SocialService_MatchesFetch_FullMethodName                      = "/social.SocialService/MatchesFetch"
 	SocialService_ProfileLikeCreate_FullMethodName                 = "/social.SocialService/ProfileLikeCreate"
 	SocialService_ProfileLikeDelete_FullMethodName                 = "/social.SocialService/ProfileLikeDelete"
 	SocialService_ProfileLikeGet_FullMethodName                    = "/social.SocialService/ProfileLikeGet"
@@ -71,6 +72,7 @@ type SocialServiceClient interface {
 	FollowingsFetch(ctx context.Context, in *FollowingsFetchRequest, opts ...grpc.CallOption) (*FollowingsFetchResponse, error)
 	FollowersFetch(ctx context.Context, in *FollowersFetchRequest, opts ...grpc.CallOption) (*FollowersFetchResponse, error)
 	FollowsCounterFetch(ctx context.Context, in *FollowsCounterFetchRequest, opts ...grpc.CallOption) (*FollowsCounterFetchResponse, error)
+	MatchesFetch(ctx context.Context, in *MatchesFetchRequest, opts ...grpc.CallOption) (*MatchesFetchResponse, error)
 	ProfileLikeCreate(ctx context.Context, in *ProfileLikeCreateRequest, opts ...grpc.CallOption) (*ProfileLikeCreateResponse, error)
 	ProfileLikeDelete(ctx context.Context, in *ProfileLikeDeleteRequest, opts ...grpc.CallOption) (*ProfileLikeDeleteResponse, error)
 	ProfileLikeGet(ctx context.Context, in *ProfileLikeGetRequest, opts ...grpc.CallOption) (*ProfileLikeGetResponse, error)
@@ -287,6 +289,16 @@ func (c *socialServiceClient) FollowsCounterFetch(ctx context.Context, in *Follo
 	return out, nil
 }
 
+func (c *socialServiceClient) MatchesFetch(ctx context.Context, in *MatchesFetchRequest, opts ...grpc.CallOption) (*MatchesFetchResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MatchesFetchResponse)
+	err := c.cc.Invoke(ctx, SocialService_MatchesFetch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *socialServiceClient) ProfileLikeCreate(ctx context.Context, in *ProfileLikeCreateRequest, opts ...grpc.CallOption) (*ProfileLikeCreateResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ProfileLikeCreateResponse)
@@ -371,6 +383,7 @@ type SocialServiceServer interface {
 	FollowingsFetch(context.Context, *FollowingsFetchRequest) (*FollowingsFetchResponse, error)
 	FollowersFetch(context.Context, *FollowersFetchRequest) (*FollowersFetchResponse, error)
 	FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error)
+	MatchesFetch(context.Context, *MatchesFetchRequest) (*MatchesFetchResponse, error)
 	ProfileLikeCreate(context.Context, *ProfileLikeCreateRequest) (*ProfileLikeCreateResponse, error)
 	ProfileLikeDelete(context.Context, *ProfileLikeDeleteRequest) (*ProfileLikeDeleteResponse, error)
 	ProfileLikeGet(context.Context, *ProfileLikeGetRequest) (*ProfileLikeGetResponse, error)
@@ -446,6 +459,9 @@ func (UnimplementedSocialServiceServer) FollowersFetch(context.Context, *Followe
 }
 func (UnimplementedSocialServiceServer) FollowsCounterFetch(context.Context, *FollowsCounterFetchRequest) (*FollowsCounterFetchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FollowsCounterFetch not implemented")
+}
+func (UnimplementedSocialServiceServer) MatchesFetch(context.Context, *MatchesFetchRequest) (*MatchesFetchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MatchesFetch not implemented")
 }
 func (UnimplementedSocialServiceServer) ProfileLikeCreate(context.Context, *ProfileLikeCreateRequest) (*ProfileLikeCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProfileLikeCreate not implemented")
@@ -846,6 +862,24 @@ func _SocialService_FollowsCounterFetch_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SocialService_MatchesFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MatchesFetchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SocialServiceServer).MatchesFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SocialService_MatchesFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SocialServiceServer).MatchesFetch(ctx, req.(*MatchesFetchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SocialService_ProfileLikeCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ProfileLikeCreateRequest)
 	if err := dec(in); err != nil {
@@ -1040,6 +1074,10 @@ var SocialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FollowsCounterFetch",
 			Handler:    _SocialService_FollowsCounterFetch_Handler,
+		},
+		{
+			MethodName: "MatchesFetch",
+			Handler:    _SocialService_MatchesFetch_Handler,
 		},
 		{
 			MethodName: "ProfileLikeCreate",
