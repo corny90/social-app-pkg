@@ -54,3 +54,23 @@ type EmailCampaignPayload struct {
 	TemplateType string `json:"template_type"`
 	Domain       string `json:"domain"`
 }
+
+type NewsJobs struct {
+	Id                  gocql.UUID `json:"id"`
+	Title               string     `json:"title"`
+	Summary             string     `json:"summary"`
+	ArticleText         string     `json:"article_text"`
+	ImageUrl            string     `json:"image_url"`
+	Keywords            []string   `json:"keywords"`
+	DefaultLikeCount    int        `json:"default_like_count"`
+	DefaultCommentCount int        `json:"default_comment_count"`
+	RealLikeCount       int        `json:"real_like_count"`
+	WritingStyle        string     `json:"writing_style"`
+	CreatedAt           string     `json:"created_at"`
+}
+
+type AnotherVuser struct {
+	UserID   string
+	Username string
+	Avatar   string
+}
