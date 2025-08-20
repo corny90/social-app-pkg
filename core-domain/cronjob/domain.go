@@ -41,3 +41,16 @@ type NewsResponse struct {
 	WritingStyle        string     `json:"writing_style"`
 	CreatedAt           string     `json:"created_at"`
 }
+
+type EmailCampaignPayload struct {
+	To           string `json:"to"`
+	Subject      string `json:"subject"`
+	TemplateData string `json:"template_data"`
+	VersionID    string `json:"version_id"`
+	TemplateID   string `json:"template_id"`
+	ActionData   string `json:"action_data"`
+	CampaignID   string `json:"campaign_id"`
+	RefID        string `json:"ref_id"`
+	TemplateType string `json:"template_type"`
+	Domain       string `json:"domain"`
+}
